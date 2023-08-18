@@ -6,7 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import {Link} from 'react-router-dom';
+import {Link, makeStyles} from '@mui/material';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -63,6 +63,9 @@ export default function NavBar() {
                     >
                         MindMap
                     </Typography>
+                    <Link href='/signin' color='inherit' underline='hover'>
+                        Login
+                    </Link>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
