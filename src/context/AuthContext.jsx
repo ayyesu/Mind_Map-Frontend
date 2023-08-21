@@ -42,7 +42,6 @@ export const AuthContextProvider = ({children}) => {
                     `${baseUrl}/signup`,
                     JSON.stringify(registerInfo),
                 );
-                console.log(response);
                 setSigningUp(false);
                 if (response?.error) {
                     setRegistrationError(response.message);

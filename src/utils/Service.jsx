@@ -32,9 +32,6 @@ export const postRequest = async (url, body) => {
             },
         });
 
-        console.log('Response status:', response.status);
-        console.log('Response data:', response.data);
-
         if (response.status !== 200) {
             let message;
             if (response.data?.message) {
@@ -42,7 +39,6 @@ export const postRequest = async (url, body) => {
             } else {
                 message = 'An error occurred';
             }
-            // console.log('Error message:', message);
             return {error: true, message};
         }
         return response.data;
