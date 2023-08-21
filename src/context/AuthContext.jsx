@@ -8,6 +8,11 @@ export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [signingup, setSigningUp] = useState(false);
     const [registrationError, setRegistrationError] = useState(null);
+    const [loggingIn, setLoggingIn] = useState(false);
+    const [loginInfo, setLoginInfo] = useState({
+        email: '',
+        password: '',
+    });
     const [registerInfo, setRegisterInfo] = useState({
         firstName: '',
         lastName: '',
@@ -18,6 +23,10 @@ export const AuthContextProvider = ({children}) => {
 
     const updateRegisterInfo = useCallback((info) => {
         setRegisterInfo(info);
+    });
+
+    const updateLoginInfo = useCallback((info) => {
+        setLoginInfo(info);
     });
 
     useEffect(() => {
@@ -33,6 +42,40 @@ export const AuthContextProvider = ({children}) => {
         }
     }, []);
 
+    const loginUser = useCallback(
+        async (e) => {
+            e.preventDefault();
+            setLoggingIn(true);
+            try {
+                const response = await postRequest(
+                    `${baseUrl}/signin`,
+                    JSON.stringify(loginInfo),
+                );
+                setLoggingIn(false);
+                if (response?.error) {
+                    toast.error(response.message);
+                } else {
+                    localStorage.setItem('User', JSON.stringify(response));
+                    toast.success('Login Successful');
+                    setUser(response);
+                }
+            } catch (error) {
+                console.error('An error occurred during Login:', error);
+                setLoggingIn(false);
+            }
+        },
+        [loginInfo],
+    );
+
+    const logoutUser = useCallback(() => {
+        localStorage.removeItem('User');
+        setUser(null);
+        setLoginInfo({
+            email: '',
+            password: '',
+        });
+    });
+
     const registerUser = useCallback(
         async (e) => {
             e.preventDefault();
@@ -44,18 +87,15 @@ export const AuthContextProvider = ({children}) => {
                 );
                 setSigningUp(false);
                 if (response?.error) {
-                    setRegistrationError(response.message);
                     toast.error(response.message);
                 } else {
                     localStorage.setItem('User', JSON.stringify(response));
                     toast.success('Registration successful');
                     setUser(response);
-                    setRegistrationError(null);
                 }
             } catch (error) {
                 console.error('An error occurred during registration:', error);
                 setSigningUp(false);
-                setRegistrationError('An error occurred during registration.');
             }
         },
         [registerInfo],
@@ -70,6 +110,11 @@ export const AuthContextProvider = ({children}) => {
                 user,
                 registrationError,
                 signingup,
+                loginUser,
+                loginInfo,
+                updateLoginInfo,
+                loggingIn,
+                logoutUser,
             }}
         >
             {children}
