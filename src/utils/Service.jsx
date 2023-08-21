@@ -24,22 +24,31 @@ export const getRequest = async (url) => {
     }
 };
 
-export const postRequest = async (url) => {
+export const postRequest = async (url, body) => {
     try {
-        const response = await axios.post(url);
-        const data = response.data;
+        const response = await axios.post(url, body, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response data:', response.data);
 
         if (response.status !== 200) {
             let message;
-            if (data?.message) {
-                message = data.message;
+            if (response.data?.message) {
+                message = response.data.message;
             } else {
-                message = data;
+                message = 'An error occurred';
             }
+            console.log('Error message:', message);
             return {error: true, message};
         }
-        return data;
+
+        return response.data;
     } catch (error) {
+        console.error('An error occurred making the request:', error);
         return {error: 'An error occurred making a post request'};
     }
 };

@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import {Link, makeStyles} from '@mui/material';
+import {AuthContext} from '../context/AuthContext';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -51,6 +52,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function NavBar() {
+    const {user} = React.useContext(AuthContext);
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position='static'>
@@ -63,9 +65,11 @@ export default function NavBar() {
                     >
                         MindMap
                     </Typography>
-                    <Link href='/signin' color='inherit' underline='hover'>
-                        Login
-                    </Link>
+                    {!user && (
+                        <Link href='/signin' color='inherit' underline='hover'>
+                            Login
+                        </Link>
+                    )}
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />

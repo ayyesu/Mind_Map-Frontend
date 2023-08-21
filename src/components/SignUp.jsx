@@ -13,16 +13,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Footer from './Footer';
+import {AuthContext} from '../context/AuthContext';
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+    const {registerUser, registerInfo, updateRegisterInfo, signingup} =
+        React.useContext(AuthContext);
+
+    const handleFieldChange = (fieldName, value) => {
+        updateRegisterInfo({
+            ...registerInfo,
+            [fieldName]: value,
         });
     };
 
@@ -47,7 +49,7 @@ export default function SignUp() {
                     <Box
                         component='form'
                         noValidate
-                        onSubmit={handleSubmit}
+                        onSubmit={registerUser}
                         sx={{mt: 3}}
                     >
                         <Grid container spacing={2}>
@@ -60,6 +62,12 @@ export default function SignUp() {
                                     id='firstName'
                                     label='First Name'
                                     autoFocus
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            'firstName',
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -70,6 +78,12 @@ export default function SignUp() {
                                     label='Last Name'
                                     name='lastName'
                                     autoComplete='family-name'
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            'lastName',
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -80,6 +94,12 @@ export default function SignUp() {
                                     label='Username'
                                     name='username'
                                     autoComplete='username'
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            'username',
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -90,6 +110,12 @@ export default function SignUp() {
                                     label='Email Address'
                                     name='email'
                                     autoComplete='email'
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            'email',
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </Grid>
 
@@ -102,6 +128,12 @@ export default function SignUp() {
                                     type='password'
                                     id='password'
                                     autoComplete='new-password'
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            'password',
+                                            e.target.value,
+                                        )
+                                    }
                                 />
                             </Grid>
                         </Grid>
@@ -111,7 +143,7 @@ export default function SignUp() {
                             variant='contained'
                             sx={{mt: 3, mb: 2}}
                         >
-                            Sign Up
+                            {signingup ? '...' : 'Sign up'}
                         </Button>
                         <Grid container justifyContent='flex-end'>
                             <Grid item>
