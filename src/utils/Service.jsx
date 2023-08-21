@@ -42,13 +42,12 @@ export const postRequest = async (url, body) => {
             } else {
                 message = 'An error occurred';
             }
-            console.log('Error message:', message);
+            // console.log('Error message:', message);
             return {error: true, message};
         }
-
         return response.data;
     } catch (error) {
         console.error('An error occurred making the request:', error);
-        return {error: 'An error occurred making a post request'};
+        return {error: true, message: error.response.data.message};
     }
 };
