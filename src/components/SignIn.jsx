@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -13,16 +11,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Footer from './Footer';
+import {AuthContext} from '../context/AuthContext';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+    const {loginUser, updateLoginInfo, loginInfo, logginIn} =
+        React.useContext(AuthContext);
+
+    const handleFieldChange = (fieldName, value) => {
+        updateLoginInfo({
+            ...loginInfo,
+            [fieldName]: value,
         });
     };
 
@@ -74,7 +74,7 @@ export default function SignIn() {
                         <Box
                             component='form'
                             noValidate
-                            onSubmit={handleSubmit}
+                            onSubmit={loginUser}
                             sx={{mt: 1}}
                         >
                             <TextField
@@ -83,6 +83,9 @@ export default function SignIn() {
                                 fullWidth
                                 id='email'
                                 label='Email Address'
+                                onChange={(e) =>
+                                    handleFieldChange('email', e.target.value)
+                                }
                                 name='email'
                                 autoComplete='email'
                                 autoFocus
@@ -95,16 +98,13 @@ export default function SignIn() {
                                 label='Password'
                                 type='password'
                                 id='password'
-                                autoComplete='current-password'
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        value='remember'
-                                        color='primary'
-                                    />
+                                onChange={(e) =>
+                                    handleFieldChange(
+                                        'password',
+                                        e.target.value,
+                                    )
                                 }
-                                label='Remember me'
+                                autoComplete='current-password'
                             />
                             <Button
                                 type='submit'
@@ -112,7 +112,7 @@ export default function SignIn() {
                                 variant='contained'
                                 sx={{mt: 3, mb: 2}}
                             >
-                                Sign In
+                                {logginIn ? '...' : 'Sign In'}
                             </Button>
                             <Grid container>
                                 <Grid item xs>

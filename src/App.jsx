@@ -1,6 +1,6 @@
 import SignUp from './components/SignUp';
 import SignIn from './components/Signin';
-import Home from './components/Home';
+import Home from './pages/Home';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {useContext} from 'react';
 import {AuthContext} from './context/AuthContext';
