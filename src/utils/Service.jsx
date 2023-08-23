@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://localhost:5000/api';
+export const baseUrl = 'http://localhost:5000';
 
 export const getRequest = async (url) => {
     try {

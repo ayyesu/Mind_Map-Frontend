@@ -48,7 +48,7 @@ export const AuthContextProvider = ({children}) => {
             setLoggingIn(true);
             try {
                 const response = await postRequest(
-                    `${baseUrl}/signin`,
+                    `${baseUrl}/api/user/signin`,
                     JSON.stringify(loginInfo),
                 );
                 setLoggingIn(false);
@@ -82,7 +82,7 @@ export const AuthContextProvider = ({children}) => {
             setSigningUp(true);
             try {
                 const response = await postRequest(
-                    `${baseUrl}/signup`,
+                    `${baseUrl}/api/user/signup`,
                     JSON.stringify(registerInfo),
                 );
                 setSigningUp(false);
