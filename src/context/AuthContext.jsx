@@ -7,7 +7,6 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [signingup, setSigningUp] = useState(false);
-    const [registrationError, setRegistrationError] = useState(null);
     const [loggingIn, setLoggingIn] = useState(false);
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -108,7 +107,6 @@ export const AuthContextProvider = ({children}) => {
                 registerInfo,
                 updateRegisterInfo,
                 user,
-                registrationError,
                 signingup,
                 loginUser,
                 loginInfo,
