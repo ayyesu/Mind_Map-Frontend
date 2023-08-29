@@ -1,1 +1,21 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.5rem;
+}
