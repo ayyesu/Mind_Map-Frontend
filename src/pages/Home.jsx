@@ -30,6 +30,7 @@ const defaultTheme = createTheme();
 
 export default function Album() {
     const {user} = React.useContext(AuthContext);
+    console.log(user);
     return (
         <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
@@ -59,10 +60,12 @@ export default function Album() {
                             color='text.secondary'
                             paragraph
                         >
-                            Something short and leading about the collection
-                            below—its contents, the creator, etc. Make it short
-                            and sweet, but not too short so folks don&apos;t
-                            simply skip over it entirely.
+                            MindMap serves as your PDF file search engine. At
+                            present, we offer access to 84,816,312 eBooks
+                            available for free download. There are no bothersome
+                            advertisements or download constraints. Feel free to
+                            indulge in the content, and remember to save it as a
+                            bookmark and share the positive experience!
                         </Typography>
                     </Container>
                 </Box>
