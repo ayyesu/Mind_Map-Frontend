@@ -33,10 +33,11 @@ export const AuthContextProvider = ({children}) => {
             const user = localStorage.getItem('User');
             if (user) {
                 const parsedUser = JSON.parse(user);
-                setUser(parsedUser);
+                if (parsedUser) {
+                    setUser(parsedUser);
+                }
             }
         } catch (error) {
-            // Handle any potential parsing errors or other issues
             console.error('Error retrieving and parsing user data:', error);
         }
     }, []);
@@ -57,6 +58,7 @@ export const AuthContextProvider = ({children}) => {
                     localStorage.setItem('User', JSON.stringify(response));
                     toast.success('Login Successful');
                     setUser(response);
+                    // window.location.href = '/';
                 }
             } catch (error) {
                 console.error('An error occurred during Login:', error);
@@ -90,6 +92,7 @@ export const AuthContextProvider = ({children}) => {
                 } else {
                     localStorage.setItem('User', JSON.stringify(response));
                     toast.success('Registration successful');
+                    // window.location.href = '/';
                     setUser(response);
                 }
             } catch (error) {
