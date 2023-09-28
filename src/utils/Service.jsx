@@ -31,8 +31,8 @@ export const postRequest = async (url, body) => {
                 'Content-Type': 'application/json',
             },
         });
-
-        if (response.status !== 200) {
+        console.log(response);
+        if (response.status.error) {
             let message;
             if (response.data?.message) {
                 message = response.data.message;
@@ -41,7 +41,6 @@ export const postRequest = async (url, body) => {
             }
             return {error: true, message};
         }
-        return response.data;
     } catch (error) {
         console.error('An error occurred making the request:', error);
         return {error: true, message: error.response.data.message};
