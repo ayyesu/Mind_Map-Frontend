@@ -142,7 +142,7 @@ export default function NavBar() {
                         component='div'
                         sx={{display: {xs: 'none', sm: 'block'}}}
                     >
-                        MINDMAP
+                        <img src='/img/mindmap.png' alt='logo' width='85px' />
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
