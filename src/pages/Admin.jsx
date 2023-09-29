@@ -84,7 +84,7 @@ const Admin = () => {
                         label='Description'
                         name='description'
                         multiline
-                        rows={8}
+                        rows={20}
                         onChange={(e) => {
                             updateBookInfo({
                                 ...bookInfo,
