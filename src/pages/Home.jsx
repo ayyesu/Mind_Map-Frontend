@@ -12,6 +12,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import BookCard from '../components/BookCard';
 import {ref, listAll, getDownloadURL} from 'firebase/storage';
 import {storage} from '../config/FirebaseConfig';
+import Footer from '../components/Footer';
+import {BookContext} from '../context/BookContext';
 
 function Copyright() {
     return (
@@ -28,10 +30,23 @@ function Copyright() {
 
 const cards = [1];
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+    palette: {
+        primary: {
+            main: '#8d6e63', // Use a shade of brown for the primary color
+        },
+        secondary: {
+            main: '#a1887f', // Use a lighter shade of brown for the secondary color
+        },
+        background: {
+            default: '#f5e0cb', // Use a light brown for the background color
+        },
+    },
+});
 
 export default function Album() {
     const {user} = useContext(AuthContext);
+    const {books} = useContext(BookContext);
     const [page, setPage] = useState(1); // Track the current page
     const [perPage] = useState(6); // Number of items per page
     const [totalPages, setTotalPages] = useState(1);
@@ -85,21 +100,24 @@ export default function Album() {
                             color='text.secondary'
                             paragraph
                         >
-                            MindMap serves as your PDF file search engine. At
-                            present, we offer access to 84,816,312 eBooks
-                            available for free download. There are no bothersome
-                            advertisements or download constraints. Feel free to
-                            indulge in the content, and remember to save it as a
-                            bookmark and share the positive experience!
+                            MindMap serves as your PDF file search engine.There
+                            are no bothersome advertisements or download
+                            constraints. Feel free to indulge in the content,
+                            and remember to save it as a bookmark and share the
+                            positive experience!
                         </Typography>
                     </Container>
                 </Box>
-                <Container sx={{py: 8}} maxWidth='md'>
+                <Container sx={{py: 8}}>
                     {/* End hero unit */}
-                    <Grid container spacing={4}>
+                    <Grid container spacing={4} width='100%'>
                         {fileUrls.map((url, index) => (
                             <Grid item key={index} xs={12} sm={6} md={4}>
-                                <BookCard imageUrl={url} />
+                                <BookCard
+                                    imageUrl={url}
+                                    title={books[index]?.title}
+                                    description={books[index]?.description}
+                                />
                             </Grid>
                         ))}
                     </Grid>
@@ -107,24 +125,52 @@ export default function Album() {
             </main>
 
             {/* Pagination */}
-            <Box sx={{textAlign: 'center', mt: 4}}>
+            <Box sx={{textAlign: 'center', mt: 4, mb: 10}}>
                 <Button
                     variant='contained'
                     color='primary'
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
                 >
-                    Previous Page
+                    <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='16'
+                        height='16'
+                        fill='currentColor'
+                        className='bi bi-arrow-left'
+                        viewBox='0 0 16 16'
+                    >
+                        <path
+                            fillRule='evenodd'
+                            d='M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z'
+                        />
+                    </svg>{' '}
+                    Previous
                 </Button>
                 <Button
                     variant='contained'
+                    style={{marginLeft: '1rem'}}
                     color='primary'
                     disabled={page === totalPages}
                     onClick={() => setPage(page + 1)}
                 >
-                    Next Page
+                    <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='16'
+                        height='16'
+                        fill='currentColor'
+                        className='bi bi-arrow-right'
+                        viewBox='0 0 16 16'
+                    >
+                        <path
+                            fillRule='evenodd'
+                            d='M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z'
+                        />
+                    </svg>{' '}
+                    Next
                 </Button>
             </Box>
+            <Footer />
         </ThemeProvider>
     );
 }
