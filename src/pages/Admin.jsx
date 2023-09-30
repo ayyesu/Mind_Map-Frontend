@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import {
     Container,
     TextField,
@@ -7,40 +7,14 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
-    Typography,
-    Grid,
 } from '@mui/material';
-import axios from 'axios';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
-import {toast} from 'react-toastify';
+// import {toast} from 'react-toastify';
 import PdfUploader from '../components/PdfUploader';
 import ImageUploader from '../components/ImageUploader';
-import {storage} from '../config/FirebaseConfig';
-import {ref, uploadBytes} from 'firebase/storage';
 import {BookContext} from '../context/BookContext';
 
 const Admin = () => {
-    const [] = useState('');
-
-    const handleImageSelect = (imageFile) => {
-        // Handle the selected image file here (e.g., upload it to a server)
-        if (imageFile == null) return;
-
-        const ImageRef = ref(storage, `images/${imageFile.name}`);
-        uploadBytes(ImageRef, imageFile).then(() => {
-            toast.success('Cover image uploaded successfully');
-        });
-    };
-
-    const handleFileSelect = (file) => {
-        // Handle the selected file here (e.g., save it to state or upload it)
-        if (file == null) return;
-        const FileRef = ref(storage, `files/${file.name}`);
-        uploadBytes(FileRef, file).then((snapshot) => {
-            toast.success('File uploaded successfully');
-        });
-    };
-
     const theme = createTheme({
         palette: {
             primary: {
@@ -52,8 +26,16 @@ const Admin = () => {
         },
     });
 
-    const {updateBookInfo, bookInfo, handleAddingBook} =
-        useContext(BookContext);
+    const {
+        updateBookInfo,
+        bookInfo,
+        handleAddingBook,
+        imageUrl,
+        setImageUrl,
+        fileUrl,
+        handleImageUpload,
+        handleFileUpload,
+    } = useContext(BookContext);
 
     return (
         <ThemeProvider theme={theme}>
@@ -93,8 +75,30 @@ const Admin = () => {
                         }}
                     />
 
-                    <ImageUploader onImageSelect={handleImageSelect} />
-                    <PdfUploader onFileSelect={handleFileSelect} />
+                    <ImageUploader onImageSelect={handleImageUpload} />
+                    <PdfUploader onFileSelect={handleFileUpload} />
+                    <TextField
+                        label='Image Url'
+                        name='imageUrl'
+                        value={imageUrl || ''}
+                        onChange={(e) => {
+                            updateBookInfo({
+                                ...bookInfo,
+                                imageUrl: e.target.value,
+                            });
+                        }}
+                    />
+                    <TextField
+                        label='File Url'
+                        name='fileUrl'
+                        value={fileUrl || ''}
+                        onChange={(e) => {
+                            updateBookInfo({
+                                ...bookInfo,
+                                fileUrl: e.target.value,
+                            });
+                        }}
+                    />
                     <FormControl>
                         <InputLabel>Category</InputLabel>
                         <Select
