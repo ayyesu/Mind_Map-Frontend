@@ -47,3 +47,32 @@ export const postRequest = async (url, body) => {
         return {error: true, message: error.response.data.message};
     }
 };
+
+export const filePostRequest = async (url, formData) => {
+    try {
+        const response = await axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log('form data response', response);
+
+        let message;
+        if (response.status !== 200) {
+            if (response.data?.message) {
+                message = response.data.message;
+            } else {
+                message = 'An error occurred';
+            }
+            return {error: true, message};
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error('An error occurred making the request:', error);
+        return {
+            error: true,
+            message: error.response.data.message || 'An error occurred',
+        };
+    }
+};
