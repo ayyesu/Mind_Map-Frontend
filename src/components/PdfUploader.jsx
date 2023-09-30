@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Grid, Typography} from '@mui/material';
+import {BookContext} from '../context/BookContext';
 
 const PdfUploader = ({onFileSelect}) => {
     const [selectedFile, setSelectedFile] = useState(null);
+    const {fileLinkLoading} = useContext(BookContext);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
         onFileSelect(file);
     };
+
+    if (fileLinkLoading) {
+        return <div class='lds-hourglass'></div>;
+    }
 
     return (
         <Grid container spacing={2} alignItems='center'>
