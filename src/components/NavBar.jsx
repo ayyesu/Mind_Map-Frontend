@@ -8,9 +8,12 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import {Grid} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import {Link as RouterLink} from 'react-router-dom';
+import {Link} from '@mui/material';
 import {AuthContext} from '../context/AuthContext';
 
 const Search = styled('div')(({theme}) => ({
@@ -87,6 +90,7 @@ export default function NavBar() {
                 vertical: 'top',
                 horizontal: 'right',
             }}
+            className='menu-render'
             id={menuId}
             keepMounted
             transformOrigin={{
@@ -96,7 +100,36 @@ export default function NavBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            {user && <MenuItem onClick={logoutUser}>Log out</MenuItem>}
+            {user && (
+                <Grid className='menu-items'>
+                    <IconButton
+                        size='large'
+                        aria-label='admin console'
+                        aria-controls='primary-search-account-menu'
+                        aria-haspopup='true'
+                        color='inherit'
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <MenuItem onClick={logoutUser}>Log out</MenuItem>
+                </Grid>
+            )}
+            {user?.user.role === 'admin' && (
+                <Grid className='menu-items'>
+                    <IconButton
+                        size='large'
+                        aria-label='admin console'
+                        aria-controls='primary-search-account-menu'
+                        aria-haspopup='true'
+                        color='inherit'
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Link component={RouterLink} to='/admin'>
+                        <MenuItem>Admin Console</MenuItem>
+                    </Link>
+                </Grid>
+            )}
         </Menu>
     );
 
@@ -118,16 +151,18 @@ export default function NavBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size='large'
-                    aria-label='account of current user'
-                    aria-controls='primary-search-account-menu'
-                    aria-haspopup='true'
-                    color='inherit'
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
+                <Grid>
+                    <IconButton
+                        size='large'
+                        aria-label='account of current user'
+                        aria-controls='primary-search-account-menu'
+                        aria-haspopup='true'
+                        color='inherit'
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Profile</p>
+                </Grid>
             </MenuItem>
         </Menu>
     );
