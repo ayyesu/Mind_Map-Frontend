@@ -15,13 +15,16 @@ import ImageUploader from '../components/ImageUploader';
 import {BookContext} from '../context/BookContext';
 
 const Admin = () => {
-    const theme = createTheme({
+    const defaultTheme = createTheme({
         palette: {
             primary: {
-                main: '#2196f3', // Blue color
+                main: '#8d6e63', // Use a shade of brown for the primary color
+            },
+            secondary: {
+                main: '#a1887f', // Use a lighter shade of brown for the secondary color
             },
             background: {
-                default: '#fff', // White color
+                default: '#f5e0cb', // Use a light brown for the background color
             },
         },
     });
@@ -31,14 +34,13 @@ const Admin = () => {
         bookInfo,
         handleAddingBook,
         imageUrl,
-        setImageUrl,
         fileUrl,
         handleImageUpload,
         handleFileUpload,
     } = useContext(BookContext);
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={defaultTheme}>
             <Container className='admin-container'>
                 <h1 className='admin-header'>Admin Console</h1>
                 <form onSubmit={handleAddingBook} className='admin-form'>
