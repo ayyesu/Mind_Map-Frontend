@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Grid, Typography} from '@mui/material';
+import {Button, Grid} from '@mui/material';
 
 const ImageUploader = ({onImageSelect}) => {
     const [selectedImage, setSelectedImage] = useState(null);
