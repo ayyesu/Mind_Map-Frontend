@@ -12,6 +12,8 @@ export const BookContext = createContext();
 export const BookContextProvider = ({children}) => {
     const [addingBook, setAddingBook] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+    const [imageLinkLoading, setImageLinkLoading] = useState(false);
+    const [fileLinkLoading, setFileLinkLoading] = useState(false);
     const [fileUrl, setFileUrl] = useState('');
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -51,7 +53,7 @@ export const BookContextProvider = ({children}) => {
         if (file == null) return;
         const formData = new FormData();
         formData.append('file', file);
-
+        setImageLinkLoading(true);
         console.log('formData', formData);
 
         const response = await filePostRequest(
@@ -61,9 +63,11 @@ export const BookContextProvider = ({children}) => {
         console.log('image post response', response);
         if (response?.error) {
             toast.error(response?.message);
+            setImageLinkLoading(false);
         } else {
             console.log('response-url', response.downloadURL);
             setImageUrl(response.downloadURL);
+            setImageLinkLoading(false);
             toast.success('Image Uploaded Successfully');
         }
     };
@@ -72,6 +76,7 @@ export const BookContextProvider = ({children}) => {
         if (file == null) return;
         const formData = new FormData();
         formData.append('file', file);
+        setFileLinkLoading(true);
 
         const response = await filePostRequest(
             `${baseUrl}/api/file/upload`,
@@ -80,8 +85,10 @@ export const BookContextProvider = ({children}) => {
         console.log('response', response);
         if (response?.error) {
             toast.error(response?.message);
+            setFileLinkLoading(false);
         } else {
             setFileUrl(response.downloadURL);
+            setFileLinkLoading(false);
             toast.success('Image Uploaded Successfully');
         }
     };
@@ -124,6 +131,8 @@ export const BookContextProvider = ({children}) => {
                 loading,
                 bookInfo,
                 updateBookInfo,
+                imageLinkLoading,
+                fileLinkLoading,
                 addingBook,
             }}
         >
