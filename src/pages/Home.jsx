@@ -8,6 +8,8 @@ import Container from '@mui/material/Container';
 import NavBar from '../components/NavBar';
 import {AuthContext} from '../context/AuthContext';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {Link as RouterLink} from 'react-router-dom';
+import {Link} from '@mui/material';
 import BookCard from '../components/BookCard';
 import Footer from '../components/Footer';
 import {BookContext} from '../context/BookContext';
@@ -28,9 +30,9 @@ const defaultTheme = createTheme({
 
 export default function Home() {
     const {user} = useContext(AuthContext);
-    const {books, page, bookLoading, totalPages} = useContext(BookContext);
+    const {books, page, loading, totalPages} = useContext(BookContext);
 
-    if (bookLoading) {
+    if (loading) {
         return (
             <div className='loading-tab'>
                 <div className='loadingio-spinner-dual-ring-zrf4k050kg8'>
@@ -87,11 +89,16 @@ export default function Home() {
                     <Grid container spacing={4} width='100%'>
                         {books.map((book) => (
                             <Grid item key={book._id} xs={12} sm={6} md={4}>
-                                <BookCard
-                                    imageUrl={book.imageUrl}
-                                    title={book.title}
-                                    description={book.description}
-                                />
+                                <Link
+                                    component={RouterLink}
+                                    to={`/book/${book._id}`}
+                                >
+                                    <BookCard
+                                        imageUrl={book.imageUrl}
+                                        title={book.title}
+                                        description={book.description}
+                                    />
+                                </Link>
                             </Grid>
                         ))}
                     </Grid>
