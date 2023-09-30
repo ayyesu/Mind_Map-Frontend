@@ -5,30 +5,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import NavBar from '../components/NavBar';
 import {AuthContext} from '../context/AuthContext';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import BookCard from '../components/BookCard';
-import {ref, listAll, getDownloadURL} from 'firebase/storage';
-import {storage} from '../config/FirebaseConfig';
 import Footer from '../components/Footer';
 import {BookContext} from '../context/BookContext';
-
-function Copyright() {
-    return (
-        <Typography variant='body2' color='text.secondary' align='center'>
-            {'Copyright © '}
-            <Link color='inherit' href='https://mui.com/'>
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const cards = [1];
 
 const defaultTheme = createTheme({
     palette: {
@@ -44,32 +26,24 @@ const defaultTheme = createTheme({
     },
 });
 
-export default function Album() {
+export default function Home() {
     const {user} = useContext(AuthContext);
-    const {books} = useContext(BookContext);
-    const [page, setPage] = useState(1); // Track the current page
-    const [perPage] = useState(6); // Number of items per page
-    const [totalPages, setTotalPages] = useState(1);
-    const [fileUrls, setFileUrls] = useState([]);
+    const {books, page, bookLoading, totalPages} = useContext(BookContext);
 
-    const ImageListRef = ref(storage, 'images/');
-
-    useEffect(() => {
-        listAll(ImageListRef).then((response) => {
-            const totalFiles = response.items.length;
-            setTotalPages(Math.ceil(totalFiles / perPage));
-            const startIdx = (page - 1) * perPage;
-            const endIdx = startIdx + perPage;
-
-            const promises = response.items
-                .slice(startIdx, endIdx)
-                .map((item) => getDownloadURL(item));
-
-            Promise.all(promises).then((urls) => {
-                setFileUrls(urls);
-            });
-        });
-    }, [page, perPage]);
+    if (bookLoading) {
+        return (
+            <div className='loading-tab'>
+                <div className='loadingio-spinner-dual-ring-zrf4k050kg8'>
+                    <div className='ldio-moow989lncj'>
+                        <div></div>
+                        <div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -111,12 +85,12 @@ export default function Album() {
                 <Container sx={{py: 8}}>
                     {/* End hero unit */}
                     <Grid container spacing={4} width='100%'>
-                        {fileUrls.map((url, index) => (
-                            <Grid item key={index} xs={12} sm={6} md={4}>
+                        {books.map((book) => (
+                            <Grid item key={book._id} xs={12} sm={6} md={4}>
                                 <BookCard
-                                    imageUrl={url}
-                                    title={books[index]?.title}
-                                    description={books[index]?.description}
+                                    imageUrl={book.imageUrl}
+                                    title={book.title}
+                                    description={book.description}
                                 />
                             </Grid>
                         ))}
