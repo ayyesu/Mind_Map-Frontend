@@ -1,25 +1,36 @@
 import {createContext, useState, useCallback, useEffect} from 'react';
-import {baseUrl, postRequest, getRequest} from '../utils/Service';
+import {
+    baseUrl,
+    postRequest,
+    getRequest,
+    filePostRequest,
+} from '../utils/Service';
 import {toast} from 'react-toastify';
 
 export const BookContext = createContext();
 
 export const BookContextProvider = ({children}) => {
     const [addingBook, setAddingBook] = useState(false);
-    const [bookDetails, setBookDetails] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');
+    const [fileUrl, setFileUrl] = useState('');
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [bookInfo, setBookInfo] = useState({
         title: '',
         author: '',
         description: '',
         category: '',
         price: '',
+        imageUrl,
+        fileUrl,
     });
+
+    console.log('Book Info', bookInfo);
 
     const updateBookInfo = useCallback((info) => {
         setBookInfo(info);
-    });
+    }, []);
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -28,6 +39,7 @@ export const BookContextProvider = ({children}) => {
 
             if (!response.error) {
                 setBooks(response);
+                console.log('response', response);
             }
             setLoading(false);
         };
@@ -35,14 +47,54 @@ export const BookContextProvider = ({children}) => {
         fetchBooks();
     }, []);
 
+    const handleImageUpload = async (file) => {
+        if (file == null) return;
+        const formData = new FormData();
+        formData.append('file', file);
+
+        console.log('formData', formData);
+
+        const response = await filePostRequest(
+            `${baseUrl}/api/image/upload`,
+            formData,
+        );
+        console.log('image post response', response);
+        if (response?.error) {
+            toast.error(response?.message);
+        } else {
+            console.log('response-url', response.downloadURL);
+            setImageUrl(response.downloadURL);
+            toast.success('Image Uploaded Successfully');
+        }
+    };
+
+    const handleFileUpload = async (file) => {
+        if (file == null) return;
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await filePostRequest(
+            `${baseUrl}/api/file/upload`,
+            formData,
+        );
+        console.log('response', response);
+        if (response?.error) {
+            toast.error(response?.message);
+        } else {
+            setFileUrl(response.downloadURL);
+            toast.success('Image Uploaded Successfully');
+        }
+    };
+
     const handleAddingBook = useCallback(
         async (e) => {
             e.preventDefault();
             setAddingBook(true);
+
             try {
                 const response = await postRequest(
                     `${baseUrl}/api/books/addbook`,
-                    JSON.stringify(bookInfo),
+                    JSON.stringify({...bookInfo, imageUrl, fileUrl}),
                 );
                 setAddingBook(false);
                 console.log('response', response);
@@ -50,7 +102,6 @@ export const BookContextProvider = ({children}) => {
                     toast.error(response?.message);
                 } else {
                     toast.success('Book Added Successfully');
-                    setBookDetails((prev) => [...prev, response]);
                 }
             } catch (error) {
                 console.error('An error occurred adding book:', error);
@@ -64,6 +115,11 @@ export const BookContextProvider = ({children}) => {
         <BookContext.Provider
             value={{
                 handleAddingBook,
+                handleImageUpload,
+                handleFileUpload,
+                imageUrl,
+                fileUrl,
+                setImageUrl,
                 books,
                 loading,
                 bookInfo,
