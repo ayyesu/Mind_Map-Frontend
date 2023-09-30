@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Button, Grid} from '@mui/material';
+import {BookContext} from '../context/BookContext';
 
 const ImageUploader = ({onImageSelect}) => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const {imageLinkLoading} = useContext(BookContext);
 
     const handleImageChange = (event) => {
         const imageFile = event.target.files[0];
@@ -19,6 +21,10 @@ const ImageUploader = ({onImageSelect}) => {
             reader.readAsDataURL(imageFile);
         }
     };
+
+    if (imageLinkLoading) {
+        return <div class='lds-hourglass'></div>;
+    }
 
     return (
         <Grid container spacing={2} alignItems='center'>
