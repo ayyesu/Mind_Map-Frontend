@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -30,7 +30,14 @@ const defaultTheme = createTheme({
 
 export default function Home() {
     const {user} = useContext(AuthContext);
-    const {books, page, loading, totalPages} = useContext(BookContext);
+    const {books, loading} = useContext(BookContext);
+    const [page, setPage] = useState(1);
+
+    const itemsPerPage = 6;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const totalPages = Math.ceil(books.length / itemsPerPage);
+    const currentBooks = books.slice(startIndex, endIndex);
 
     if (loading) {
         return (
@@ -87,7 +94,7 @@ export default function Home() {
                 <Container sx={{py: 8}}>
                     {/* End hero unit */}
                     <Grid container spacing={4} width='100%'>
-                        {books.map((book) => (
+                        {currentBooks.map((book) => (
                             <Grid item key={book._id} xs={12} sm={6} md={4}>
                                 <Link
                                     component={RouterLink}
