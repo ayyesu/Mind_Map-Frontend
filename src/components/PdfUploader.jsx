@@ -13,7 +13,11 @@ const PdfUploader = ({onFileSelect}) => {
     };
 
     if (fileLinkLoading) {
-        return <div class='lds-hourglass'></div>;
+        return (
+            <div className='loading-div'>
+                <div class='lds-hourglass'></div>
+            </div>
+        );
     }
 
     return (
