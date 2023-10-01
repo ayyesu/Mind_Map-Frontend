@@ -41,6 +41,16 @@ p {
     align-items: center;
 }
 
+.admin-div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
 .admin-form {
     display: flex;
 
@@ -126,6 +136,10 @@ p {
 }
 
 /* Image Link Loading*/
+.loading-div {
+    padding: 6px;
+}
+
 .lds-hourglass {
     display: inline-block;
     position: relative;

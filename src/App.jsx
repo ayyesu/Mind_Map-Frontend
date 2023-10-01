@@ -9,8 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import NotFound from './pages/NotFound';
 import Admin from './pages/Admin';
 import {BookContextProvider} from './context/BookContext';
+import {register} from './serviceWorker';
 
 function App() {
+    register();
     const {user} = useContext(AuthContext);
     return (
         <Router>
