@@ -9,7 +9,8 @@ import {
     InputLabel,
 } from '@mui/material';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
-// import {toast} from 'react-toastify';
+import {Link as RouterLink} from 'react-router-dom';
+import {Link} from '@mui/material';
 import PdfUploader from '../components/PdfUploader';
 import ImageUploader from '../components/ImageUploader';
 import {BookContext} from '../context/BookContext';
@@ -42,7 +43,17 @@ const Admin = () => {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container className='admin-container'>
-                <h1 className='admin-header'>Admin Console</h1>
+                <div className='admin-div'>
+                    <div>
+                        <h1 className='admin-header'>Admin Console</h1>
+                    </div>
+                    <div>
+                        <Link component={RouterLink} to='/'>
+                            <small className='link'>Go to Home</small>
+                        </Link>
+                    </div>
+                </div>
+
                 <form onSubmit={handleAddingBook} className='admin-form'>
                     <TextField
                         label='Title'
