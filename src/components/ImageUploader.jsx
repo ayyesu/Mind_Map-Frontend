@@ -23,7 +23,11 @@ const ImageUploader = ({onImageSelect}) => {
     };
 
     if (imageLinkLoading) {
-        return <div class='lds-hourglass'></div>;
+        return (
+            <div className='loading-div'>
+                <div class='lds-hourglass'></div>
+            </div>
+        );
     }
 
     return (
