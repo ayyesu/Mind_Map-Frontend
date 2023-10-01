@@ -109,6 +109,7 @@ export const BookContextProvider = ({children}) => {
                     toast.error(response?.message);
                 } else {
                     toast.success('Book Added Successfully');
+                    window.location.reload();
                 }
             } catch (error) {
                 console.error('An error occurred adding book:', error);
