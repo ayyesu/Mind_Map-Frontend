@@ -91,7 +91,12 @@ export default function Home() {
                         </Typography>
                     </Container>
                 </Box>
-                <Container sx={{py: 8}}>
+                <Container
+                    sx={{
+                        py: 8,
+                    }}
+                    align='center'
+                >
                     {/* End hero unit */}
                     <Grid container spacing={4} width='100%'>
                         {currentBooks.map((book) => (
