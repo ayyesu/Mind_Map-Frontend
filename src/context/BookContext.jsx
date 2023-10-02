@@ -17,6 +17,7 @@ export const BookContextProvider = ({children}) => {
     const [fileUrl, setFileUrl] = useState('');
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [bookDetails, setBookDetails] = useState({});
 
     const [bookInfo, setBookInfo] = useState({
         title: '',
@@ -28,10 +29,24 @@ export const BookContextProvider = ({children}) => {
         fileUrl,
     });
 
-    console.log('Book Info', bookInfo);
-
     const updateBookInfo = useCallback((info) => {
         setBookInfo(info);
+    }, []);
+
+    const fetchSingleBook = useCallback(async (bookId) => {
+        try {
+            const response = await getRequest(`${baseUrl}/api/books/${bookId}`);
+            console.log('singleBook', response);
+            if (response?.error) {
+                toast.error(response?.message);
+            } else {
+                setBookDetails(response);
+                // Use window.location to change the URL
+                // window.location.href = `/book/${bookId}`;
+            }
+        } catch (error) {
+            console.error('An error occurred fetching the book:', error);
+        }
     }, []);
 
     useEffect(() => {
@@ -128,6 +143,7 @@ export const BookContextProvider = ({children}) => {
                 imageUrl,
                 fileUrl,
                 setImageUrl,
+                bookDetails,
                 books,
                 loading,
                 bookInfo,
@@ -135,6 +151,7 @@ export const BookContextProvider = ({children}) => {
                 imageLinkLoading,
                 fileLinkLoading,
                 addingBook,
+                fetchSingleBook,
             }}
         >
             {children}
