@@ -177,7 +177,13 @@ export default function NavBar() {
                         component='div'
                         sx={{display: {xs: 'none', sm: 'block'}}}
                     >
-                        <img src='/img/mindmap.png' alt='logo' width='85px' />
+                        <Link component={RouterLink} to='/' className='logo'>
+                            <img
+                                src='/img/mindmap.png'
+                                alt='logo'
+                                width='85px'
+                            />
+                        </Link>
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
