@@ -7,6 +7,7 @@ import React from 'react';
 const BookCard = ({imageUrl, title, description}) => {
     const truncatedDescription = description.slice(0, 50) + '...';
     const truncatedtitle = title.slice(0, 20) + '...';
+
     return (
         <Card
             sx={{
