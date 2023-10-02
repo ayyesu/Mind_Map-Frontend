@@ -56,9 +56,9 @@ export const AuthContextProvider = ({children}) => {
                     toast.error(response.message);
                 } else {
                     localStorage.setItem('User', JSON.stringify(response));
-                    toast.success('Login Successful');
                     setUser(response);
-                    // window.location.href = '/';
+                    window.location.href = '/';
+                    toast.success('Login Successful');
                 }
             } catch (error) {
                 console.error('An error occurred during Login:', error);
@@ -92,8 +92,8 @@ export const AuthContextProvider = ({children}) => {
                 } else {
                     localStorage.setItem('User', JSON.stringify(response));
                     toast.success('Registration successful');
-                    // window.location.href = '/';
                     setUser(response);
+                    window.location.href = '/';
                 }
             } catch (error) {
                 console.error('An error occurred during registration:', error);
