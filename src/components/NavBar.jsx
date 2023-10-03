@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext, useState} from 'react';
 import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,6 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import {Link as RouterLink} from 'react-router-dom';
 import {Link} from '@mui/material';
 import {AuthContext} from '../context/AuthContext';
+import {BookContext} from '../context/BookContext';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -57,10 +58,15 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function NavBar() {
-    const {logoutUser, user} = React.useContext(AuthContext);
+    const {logoutUser, user} = useContext(AuthContext);
+    const {searchQuery, setSearchQuery} = useContext(BookContext);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -125,7 +131,11 @@ export default function NavBar() {
                     >
                         <AccountCircle />
                     </IconButton>
-                    <Link component={RouterLink} to='/admin'>
+                    <Link
+                        sx={{textDecoration: 'none'}}
+                        component={RouterLink}
+                        to='/admin'
+                    >
                         <MenuItem>Admin Console</MenuItem>
                     </Link>
                 </Grid>
@@ -179,7 +189,7 @@ export default function NavBar() {
                     >
                         <Link component={RouterLink} to='/' className='logo'>
                             <img
-                                src='/img/mindmap.png'
+                                src='/img/mindmap-logo.png'
                                 alt='logo'
                                 width='85px'
                             />
@@ -192,6 +202,7 @@ export default function NavBar() {
                         <StyledInputBase
                             placeholder='Search…'
                             inputProps={{'aria-label': 'search'}}
+                            onChange={handleSearch}
                         />
                     </Search>
                     <Box sx={{flexGrow: 1}} />
