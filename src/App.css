@@ -3,6 +3,11 @@
 .nav {
     background: '#007bff';
 }
+
+.profile-menu {
+    font-size: medium;
+}
+
 .not-found-container {
     display: flex;
     flex-direction: column;
@@ -33,7 +38,8 @@ p {
 .admin-container {
     display: flex;
     justify-content: center;
-    background-color: slategray;
+    background-color: rgb(70, 121, 173);
+    border-radius: 30px;
     align-items: center;
     padding: 80px;
 }
@@ -42,6 +48,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2rem;
 }
 
 .admin-div {
@@ -146,8 +154,8 @@ p {
 .lds-hourglass {
     display: inline-block;
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
 }
 .lds-hourglass:after {
     content: ' ';
