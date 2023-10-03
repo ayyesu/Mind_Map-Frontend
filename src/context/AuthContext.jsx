@@ -75,6 +75,7 @@ export const AuthContextProvider = ({children}) => {
             email: '',
             password: '',
         });
+        window.location.reload();
     });
 
     const registerUser = useCallback(
