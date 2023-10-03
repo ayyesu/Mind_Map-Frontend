@@ -35,8 +35,11 @@ export default function Home() {
     const [page, setPage] = useState(1);
 
     // Filter books based on search query
-    const filteredBooks = books.filter((book) =>
-        book.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    const filteredBooks = books.filter(
+        (book) => book.title.toLowerCase().includes(searchQuery.toLowerCase()),
+        (book) => book.author.toLowerCase().includes(searchQuery.toLowerCase()),
+        (book) =>
+            book.category.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
     const itemsPerPage = 6;
