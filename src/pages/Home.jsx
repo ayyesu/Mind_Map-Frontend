@@ -30,14 +30,25 @@ const defaultTheme = createTheme({
 
 export default function Home() {
     const {user} = useContext(AuthContext);
-    const {books, loading} = useContext(BookContext);
+    const {books, loading, searchQuery, setSearchQuery} =
+        useContext(BookContext);
     const [page, setPage] = useState(1);
 
+    // Filter books based on search query
+    const filteredBooks = books.filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
     const itemsPerPage = 6;
+    const totalFilteredBooks = filteredBooks.length;
+
+    // Calculate pagination for filtered books
+    const totalPages = Math.ceil(totalFilteredBooks / itemsPerPage);
     const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const totalPages = Math.ceil(books.length / itemsPerPage);
-    const currentBooks = books.slice(startIndex, endIndex);
+    const endIndex = Math.min(startIndex + itemsPerPage, totalFilteredBooks);
+
+    // Update the currentBooks to use filteredBooks
+    const currentBooks = filteredBooks.slice(startIndex, endIndex);
 
     if (loading) {
         return (
@@ -104,6 +115,7 @@ export default function Home() {
                                 <Link
                                     component={RouterLink}
                                     to={`/book/${book._id}`}
+                                    sx={{textDecoration: 'none'}}
                                 >
                                     <BookCard
                                         imageUrl={book.imageUrl}
