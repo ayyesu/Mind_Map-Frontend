@@ -78,7 +78,7 @@ export default function BookDetailsPage() {
                             >
                                 {bookDetails.title}
                             </p>
-                            <p
+                            <pre
                                 className='author'
                                 style={{
                                     fontSize: '1rem',
@@ -86,9 +86,9 @@ export default function BookDetailsPage() {
                                 }}
                             >
                                 By {bookDetails.author}
-                            </p>
+                            </pre>
                             {showFullDescription ? (
-                                <p className='description'>
+                                <pre className='description'>
                                     {bookDetails.description} <br />
                                     <span
                                         className='show-more'
@@ -96,9 +96,9 @@ export default function BookDetailsPage() {
                                     >
                                         Show Less
                                     </span>
-                                </p>
+                                </pre>
                             ) : (
-                                <p className='description'>
+                                <pre className='description'>
                                     {bookDetails.description?.slice(0, 100)}...
                                     <span
                                         className='show-more'
@@ -106,7 +106,7 @@ export default function BookDetailsPage() {
                                     >
                                         Show More
                                     </span>
-                                </p>
+                                </pre>
                             )}
                             <p
                                 className='price'
