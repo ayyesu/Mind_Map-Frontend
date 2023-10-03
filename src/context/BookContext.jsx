@@ -53,9 +53,12 @@ export const BookContextProvider = ({children}) => {
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
-                const response = await fetch(`/api/search?q=${searchQuery}`);
+                const response = await fetch(
+                    `/api/books/search?q=${searchQuery}`,
+                );
                 const data = await response.json();
-                // Handle the search results (e.g., update state in your parent component)
+                console.log('search data', data);
+                setSearchResults(data);
             } catch (error) {
                 console.error('Error fetching search results:', error);
             }
