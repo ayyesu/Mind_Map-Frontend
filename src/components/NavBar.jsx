@@ -151,7 +151,7 @@ export default function NavBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem onClick={handleProfileMenuOpen}>
-                <Grid>
+                <Grid className='menu-items'>
                     <IconButton
                         size='large'
                         aria-label='account of current user'
@@ -168,7 +168,7 @@ export default function NavBar() {
     );
 
     return (
-        <Box sx={{flexGrow: 1}}>
+        <Box className='nav' sx={{flexGrow: 1}}>
             <AppBar position='static'>
                 <Toolbar>
                     <Typography
