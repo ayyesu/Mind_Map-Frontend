@@ -67,7 +67,7 @@ export default function SignIn() {
                     >
                         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
                             <img
-                                src='/img/mindmap.png'
+                                src='/img/mindmap-logo.png'
                                 alt='logo'
                                 width='85px'
                             />
