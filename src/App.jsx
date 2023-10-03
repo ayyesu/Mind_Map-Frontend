@@ -9,6 +9,8 @@ import Admin from './pages/Admin';
 import {register} from './serviceWorker';
 import BookDetailsPage from './pages/BookDetails';
 import ProtectedRoute from './ProtectedRoutes';
+import AdminRoute from './AdminRoute';
+import Unauthorized from './pages/Unauthorized';
 
 function App() {
     register();
@@ -19,12 +21,14 @@ function App() {
             <Routes>
                 <Route element={<ProtectedRoute />}>
                     <Route path='/' element={<Home />} />
-                    <Route path='/admin' element={<Admin />} />
+                    <Route element={<AdminRoute />}>
+                        <Route path='/admin' element={<Admin />} />
+                    </Route>
                     <Route path='/book/:bookId' element={<BookDetailsPage />} />
                 </Route>
                 <Route path='/signin' exact element={<SignIn />} />
                 <Route path='/signup' element={<SignUp />} />
-
+                <Route path='/unauthorized' element={<Unauthorized />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </Router>
