@@ -70,7 +70,7 @@ export default function Home() {
                     <Container maxWidth='sm'>
                         <Typography
                             component='h1'
-                            variant='h2'
+                            variant='h4'
                             align='center'
                             color='text.primary'
                             gutterBottom
@@ -78,7 +78,7 @@ export default function Home() {
                             {`Welcome ${user.user?.username}`}
                         </Typography>
                         <Typography
-                            variant='h5'
+                            variant='h6'
                             align='center'
                             color='text.secondary'
                             paragraph
