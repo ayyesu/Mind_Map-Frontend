@@ -242,6 +242,12 @@ p {
     height: 150px;
     overflow-y: auto;
     padding-right: 8px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap; /* This allows the text to wrap */
+    margin: 0; /* Remove any default margins */
+    padding: 1em; /* Add some padding for space around the content */
+    background-color: #f5f5f5; /* Add a light background color for better contrast */
+    border: 1px solid #ccc; /* Add a border for separation */
 }
 
 .book-detail .description::-webkit-scrollbar {
@@ -273,6 +279,15 @@ p {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+}
+
+.bookCardImage {
+    transition: transform 0.5s;
+}
+
+.bookCardImage:hover {
+    transform: scale(0.9);
+    filter: brightness(70%);
 }
 
 /* Unauthorized Page */

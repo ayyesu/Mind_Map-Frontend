@@ -18,6 +18,7 @@ export const BookContextProvider = ({children}) => {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [bookDetails, setBookDetails] = useState({});
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [bookInfo, setBookInfo] = useState({
         title: '',
@@ -48,6 +49,22 @@ export const BookContextProvider = ({children}) => {
             console.error('An error occurred fetching the book:', error);
         }
     }, []);
+
+    useEffect(() => {
+        const fetchSearchResults = async () => {
+            try {
+                const response = await fetch(`/api/search?q=${searchQuery}`);
+                const data = await response.json();
+                // Handle the search results (e.g., update state in your parent component)
+            } catch (error) {
+                console.error('Error fetching search results:', error);
+            }
+        };
+
+        if (searchQuery !== '') {
+            fetchSearchResults();
+        }
+    }, [searchQuery]);
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -152,6 +169,8 @@ export const BookContextProvider = ({children}) => {
                 fileLinkLoading,
                 addingBook,
                 fetchSingleBook,
+                searchQuery,
+                setSearchQuery,
             }}
         >
             {children}
