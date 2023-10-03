@@ -15,6 +15,7 @@ const BookCard = ({imageUrl, title, description}) => {
                 height: '95%',
                 display: 'flex',
                 flexDirection: 'column',
+                borderRadius: '10px',
             }}
         >
             <CardMedia component='div' sx={{height: 240}}>
