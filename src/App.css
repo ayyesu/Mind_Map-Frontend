@@ -68,7 +68,9 @@ p {
   flex-direction: column;
   gap: 1rem;
 }
-
+.pad-loading {
+  padding: 10px;
+}
 /* Path: src/components/Loading/Loading.css */
 
 @keyframes ldio-moow989lncj {
@@ -148,14 +150,14 @@ p {
 
 /* Image Link Loading*/
 .loading-div {
-  padding: 6px;
+  padding: auto;
 }
 
 .lds-hourglass {
   display: inline-block;
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
 }
 .lds-hourglass:after {
   content: " ";

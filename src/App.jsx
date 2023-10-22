@@ -22,7 +22,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                     <Route path='/' element={<Home />} />
                     <Route element={<AdminRoute />}>
-                        <Route path='/admin' element={<Admin />} />
+                        <Route path='/admin/:userId' element={<Admin />} />
                     </Route>
                     <Route path='/book/:bookId' element={<BookDetailsPage />} />
                 </Route>
