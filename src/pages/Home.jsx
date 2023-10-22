@@ -101,10 +101,11 @@ export default function Home() {
               color="text.secondary"
               paragraph
             >
-              MindMap serves as your Ebook file search engine.There are no
-              bothersome advertisements or download constraints. Feel free to
-              indulge in the content, and remember to save it as a bookmark and
-              share the positive experience!
+              MindMap serves as your Ebook file search engine.There are
+              currently <span className="booklength">{books.length}</span> Ebooks available with no bothersome
+              advertisements or download constraints. Feel free to indulge in
+              the content, and remember to save it as a bookmark and share the
+              positive experience!
             </Typography>
           </Container>
         </Box>
