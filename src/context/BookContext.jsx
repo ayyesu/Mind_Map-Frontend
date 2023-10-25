@@ -176,7 +176,7 @@ export const BookContextProvider = ({ children }) => {
           toast.error(response.message);
         } else {
           toast.success("Book Added Successfully");
-          window.location.reload();
+          window.location.href = `/user/posts/${userId}`;
         }
       } catch (error) {
         console.error("An error occurred adding book:", error);
