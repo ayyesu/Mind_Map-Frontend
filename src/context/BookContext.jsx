@@ -19,8 +19,9 @@ export const BookContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [bookDetails, setBookDetails] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+  const [userBooks, setUserBooks] = useState([]);
+  console.log("userBooks", userBooks);
   const [randomisedBookDetails, setRandomisedBookDetails] = useState([]);
-  console.log("randomisedBookDetails", randomisedBookDetails);
   const [bookInfo, setBookInfo] = useState({
     title: "",
     author: "",
@@ -35,6 +36,7 @@ export const BookContextProvider = ({ children }) => {
     setBookInfo(info);
   }, []);
 
+  // Fetching a single book
   const fetchSingleBook = useCallback(async (bookId) => {
     try {
       const response = await getRequest(`${baseUrl}/api/books/${bookId}`);
@@ -48,6 +50,7 @@ export const BookContextProvider = ({ children }) => {
     }
   }, []);
 
+  // Fetching search results
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
@@ -64,6 +67,7 @@ export const BookContextProvider = ({ children }) => {
     }
   }, [searchQuery]);
 
+  // Fetching all books
   useEffect(() => {
     const fetchBooks = async () => {
       const url = `${baseUrl}/api/books`;
@@ -77,6 +81,20 @@ export const BookContextProvider = ({ children }) => {
 
     fetchBooks();
   }, []);
+
+  // Fetch books posted by a particular user
+  const fetchUserBooks = async (userId) => {
+    try {
+      const response = await getRequest(`${baseUrl}/api/books/user/${userId}`);
+      if (response?.error) {
+        toast.error(response?.message);
+      } else {
+        setUserBooks(response);
+      }
+    } catch (error) {
+      console.error("An error occurred fetching the book:", error);
+    }
+  };
 
   // Get randomised books based on book with the same category from backend
   const fetchRandomBookWithSameCategory = async (category) => {
@@ -140,14 +158,22 @@ export const BookContextProvider = ({ children }) => {
       setAddingBook(true);
 
       try {
+        const localStorageuserId = localStorage.getItem("User");
+        const userId = JSON.parse(localStorageuserId)?.user._id;
+
+        if (!userId) {
+          throw new Error("User ID not found in local storage");
+        }
+
         const response = await postRequest(
-          `${baseUrl}/api/books/addbook`,
+          `${baseUrl}/api/books/${userId}/add-book`,
           JSON.stringify({ ...bookInfo, imageUrl, fileUrl })
         );
+
         setAddingBook(false);
-        console.log("response", response);
-        if (response?.error) {
-          toast.error(response?.message);
+
+        if (response.error) {
+          toast.error(response.message);
         } else {
           toast.success("Book Added Successfully");
           window.location.reload();
@@ -182,6 +208,8 @@ export const BookContextProvider = ({ children }) => {
         setSearchQuery,
         randomisedBookDetails,
         fetchRandomBookWithSameCategory,
+        fetchUserBooks,
+        userBooks,
       }}
     >
       {children}

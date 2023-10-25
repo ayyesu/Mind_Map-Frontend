@@ -59,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar() {
   const { logoutUser, user } = useContext(AuthContext);
-  const { searchQuery, setSearchQuery } = useContext(BookContext);
+  const { setSearchQuery } = useContext(BookContext);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -157,6 +157,43 @@ export default function NavBar() {
             to={`/admin/${user?.user._id}`}
           >
             <MenuItem>Admin Console</MenuItem>
+          </Link>
+        </Grid>
+      )}
+      {user?.user.role === "admin" && (
+        <Grid className="menu-items">
+          <IconButton
+            size="large"
+            aria-label="admin console"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-door-open"
+              viewBox="0 0 16 16"
+            >
+              <path d="M13.5 11h-11a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5zM13 5H3v4h10V5z" />
+              <path
+                fillRule="evenodd"
+                d="M8 13.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H8.5a.5.5 0 0 1-.5-.5z"
+              />
+              <path
+                fillRule="evenodd"
+                d="M7.646 8.146a.5.5 0 0 1 .708 0L10 10.293V7.5a.5.5 0 0 1 1 0v3a.5.5 0 0 1-.5.5H7.5a.5.5 0 0 1 0-1h2.793L7.646 8.146z"
+              />
+            </svg>
+          </IconButton>
+          <Link
+            sx={{ textDecoration: "none" }}
+            component={RouterLink}
+            to={`/user/posts/${user?.user._id}`}
+          >
+            <MenuItem>Posts</MenuItem>
           </Link>
         </Grid>
       )}
