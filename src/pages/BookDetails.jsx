@@ -28,9 +28,14 @@ const defaultTheme = createTheme({
 export default function BookDetailsPage() {
   const { bookDetails, fetchSingleBook } = useContext(BookContext);
   const { bookId } = useParams();
+  const abortController = new AbortController();
   useEffect(() => {
     // Fetch a specific book when the component mounts
     fetchSingleBook(bookId);
+
+    return () => {
+      abortController.abort();
+    };
   }, [bookId]);
 
   const [showFullDescription, setShowFullDescription] = useState(false);

@@ -46,44 +46,34 @@ const UserBooks = () => {
               Manage Posts
             </h2>
             {userBooks.map((book) => (
-              <div
-                style={{
-                  display: "flex",
-                  marginTop: "50px",
-                  flexWrap: "wrap",
-                  justifyContent: "flex-start",
-                }}
-              >
-                <Card key={book._id} style={{ maxWidth: 345, margin: "10px" }}>
-                  <CardMedia
-                    component="img"
-                    alt={book.title}
-                    title={book.title}
-                    height="140"
-                    image={book.imageUrl}
-                  />
-                  <CardContent>
-                    <Typography variant="h6">
-                      {book.title.slice(0, 20) + "..."}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Author: {book.author}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Date Added:{" "}
-                      {new Date(book.createdAt).toLocaleDateString()}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button variant="outlined" color="primary">
-                      Update
-                    </Button>
-                    <Button variant="outlined" color="error">
-                      Delete
-                    </Button>
-                  </CardActions>
-                </Card>
-              </div>
+              <Card key={book._id} style={{ maxWidth: 245, margin: "10px" }}>
+                <CardMedia
+                  component="img"
+                  alt={book.title}
+                  title={book.title}
+                  height="140"
+                  image={book.imageUrl}
+                />
+                <CardContent>
+                  <Typography variant="h6">
+                    {book.title.slice(0, 20) + "..."}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Author: {book.author}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Date Added: {new Date(book.createdAt).toLocaleDateString()}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button variant="outlined" color="primary">
+                    Update
+                  </Button>
+                  <Button variant="outlined" color="error">
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
             ))}
           </div>
         )}
