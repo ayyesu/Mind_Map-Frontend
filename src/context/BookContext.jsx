@@ -21,7 +21,6 @@ export const BookContextProvider = ({ children }) => {
   const [bookDetails, setBookDetails] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [userBooks, setUserBooks] = useState([]);
-  console.log("userBooks", userBooks);
   const [randomisedBookDetails, setRandomisedBookDetails] = useState([]);
   const [bookInfo, setBookInfo] = useState({
     title: "",

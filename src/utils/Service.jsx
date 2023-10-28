@@ -7,7 +7,7 @@ export const getRequest = async (url) => {
   try {
     const response = await axios.get(url);
     const data = response.data;
-
+    console.log("response", response);
     if (response.status !== 200) {
       let message;
       if (data?.message) {

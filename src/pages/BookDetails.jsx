@@ -1,3 +1,4 @@
+// Import necessary modules
 import React, { useContext, useEffect, useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -10,20 +11,8 @@ import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
 import { BookContext } from "../context/BookContext";
 import moment from "moment";
-
-const defaultTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#8d6e63", // Use a shade of brown for the primary color
-    },
-    secondary: {
-      main: "#a1887f", // Use a lighter shade of brown for the secondary color
-    },
-    background: {
-      default: "#f5e0cb", // Use a light brown for the background color
-    },
-  },
-});
+import Modal from "react-modal";
+import PDFViewer from "../components/PDFViewer"; // Create a new component for PDF Viewer
 
 export default function BookDetailsPage() {
   const { bookDetails, fetchSingleBook } = useContext(BookContext);
@@ -39,13 +28,22 @@ export default function BookDetailsPage() {
   }, [bookId]);
 
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false); // State for modal
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
 
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <div>
       <CssBaseline />
       <NavBar />
       <main>
@@ -131,13 +129,8 @@ export default function BookDetailsPage() {
               >
                 {bookDetails.category}
               </p>
-              <Link
-                component={RouterLink}
-                to={bookDetails.fileUrl}
-                download={bookDetails.fileUrl}
-                target="_blank"
-              >
-                <button className="download-btn">
+              <div>
+                <button className="download-btn" onClick={() => openModal()}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -157,12 +150,27 @@ export default function BookDetailsPage() {
                   </svg>{" "}
                   Preview
                 </button>
-              </Link>
+              </div>
+              {/* Modal for PDF Preview */}
+              <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel={bookDetails.title}
+              >
+                <button
+                  title="Close"
+                  className="delete-icon"
+                  onClick={closeModal}
+                >
+                  x
+                </button>
+                <PDFViewer pdfFile={bookDetails.fileUrl} />
+              </Modal>
             </div>
           </Container>
         </Box>
       </main>
       <Footer />
-    </ThemeProvider>
+    </div>
   );
 }
