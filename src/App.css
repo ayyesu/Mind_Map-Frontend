@@ -1,7 +1,7 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 .nav {
-  background: "#007bff";
+  background-color: rgb(47, 104, 227);
 }
 
 .profile-menu {
@@ -194,6 +194,10 @@ p {
 
 .title {
   font-size: 2rem;
+}
+
+.book-area {
+  background-color: #4b81bb;
 }
 
 .book-cover {

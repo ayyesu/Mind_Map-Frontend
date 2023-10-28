@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const baseUrl = "http://localhost:5000";
 
+// GET request
 export const getRequest = async (url) => {
   try {
     const response = await axios.get(url);
@@ -24,6 +25,7 @@ export const getRequest = async (url) => {
   }
 };
 
+// Post Request
 export const postRequest = async (url, body) => {
   try {
     const response = await axios.post(url, body, {
@@ -48,6 +50,7 @@ export const postRequest = async (url, body) => {
   }
 };
 
+// File Posting Request
 export const filePostRequest = async (url, formData) => {
   try {
     const response = await axios.post(url, formData, {
@@ -73,6 +76,29 @@ export const filePostRequest = async (url, formData) => {
     return {
       error: true,
       message: error.response.data.message || "An error occurred",
+    };
+  }
+};
+
+// Delete Request
+export const deleteRequest = async (url) => {
+  try {
+    const response = await axios.delete(url);
+    const data = response.data;
+
+    if (response.status !== 200) {
+      let message;
+      if (data?.message) {
+        message = data.message;
+      } else {
+        message = data;
+      }
+      return { error: true, message };
+    }
+    return data;
+  } catch (error) {
+    return {
+      error: "Something happened fetching data, Our team will be working on it",
     };
   }
 };

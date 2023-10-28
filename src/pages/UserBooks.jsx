@@ -12,7 +12,8 @@ import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 
 const UserBooks = () => {
-  const { userBooks, fetchUserBooks } = useContext(BookContext);
+  const { userBooks, fetchUserBooks, handleDeleteBook } =
+    useContext(BookContext);
   const { userId } = useParams();
 
   useEffect(() => {
@@ -23,28 +24,29 @@ const UserBooks = () => {
     <div>
       <NavBar />
       <div>
-        {userBooks == [] ? (
+        <h2
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+          }}
+        >
+          Manage Posts
+        </h2>
+        {userBooks.length == 0 ? (
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              height: "50vh",
             }}
           >
-            <Typography variant="h4">No Books Uploaded</Typography>
+            <Typography variant="h6">No Books Uploaded</Typography>
           </div>
         ) : (
           <div>
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "20px",
-              }}
-            >
-              Manage Posts
-            </h2>
             {userBooks.map((book) => (
               <Card key={book._id} style={{ maxWidth: 245, margin: "10px" }}>
                 <CardMedia
@@ -69,7 +71,11 @@ const UserBooks = () => {
                   <Button variant="outlined" color="primary">
                     Update
                   </Button>
-                  <Button variant="outlined" color="error">
+                  <Button
+                    onClick={() => handleDeleteBook(book._id)}
+                    variant="outlined"
+                    color="error"
+                  >
                     Delete
                   </Button>
                 </CardActions>

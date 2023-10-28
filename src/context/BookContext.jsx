@@ -4,6 +4,7 @@ import {
   postRequest,
   getRequest,
   filePostRequest,
+  deleteRequest,
 } from "../utils/Service";
 import { toast } from "react-toastify";
 
@@ -186,6 +187,27 @@ export const BookContextProvider = ({ children }) => {
     [bookInfo]
   );
 
+  // Deleting a book
+  const handleDeleteBook = useCallback(
+    async (bookId) => {
+      try {
+        const response = await deleteRequest(
+          `${baseUrl}/api/books/${bookId}/delete`
+        );
+
+        if (response.error) {
+          toast.error(response.message);
+        } else {
+          toast.success("Book Deleted Successfully");
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error("An error occurred deleting book:", error);
+      }
+    },
+    [bookInfo]
+  );
+
   return (
     <BookContext.Provider
       value={{
@@ -210,6 +232,7 @@ export const BookContextProvider = ({ children }) => {
         fetchRandomBookWithSameCategory,
         fetchUserBooks,
         userBooks,
+        handleDeleteBook,
       }}
     >
       {children}

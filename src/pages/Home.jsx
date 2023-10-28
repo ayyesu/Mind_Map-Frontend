@@ -69,8 +69,7 @@ export default function Home() {
   }
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
+    <div>
       <NavBar />
       <main>
         {/* Hero unit */}
@@ -102,13 +101,15 @@ export default function Home() {
               paragraph
             >
               MindMap serves as your Ebook file search engine.There are
-              currently <span className="booklength">{books.length}</span> Ebooks available with no bothersome
-              advertisements or download constraints. Feel free to indulge in
-              the content, and remember to save it as a bookmark and share the
-              positive experience!
+              currently <span className="booklength">{books.length}</span>{" "}
+              Ebooks available with no bothersome advertisements or download
+              constraints. Feel free to indulge in the content, and remember to
+              save it as a bookmark and share the positive experience!
             </Typography>
           </Container>
         </Box>
+      </main>
+      <div className="book-area">
         <Container
           sx={{
             py: 8,
@@ -116,6 +117,7 @@ export default function Home() {
           align="center"
         >
           {/* End hero unit */}
+
           <Grid container spacing={4} width="100%">
             {currentBooks.map((book) => (
               <Grid item key={book._id} xs={12} sm={6} md={4}>
@@ -134,7 +136,7 @@ export default function Home() {
             ))}
           </Grid>
         </Container>
-      </main>
+      </div>
 
       {/* Pagination */}
       <Box sx={{ textAlign: "center", mt: 4, mb: 10 }}>
@@ -183,6 +185,6 @@ export default function Home() {
         </Button>
       </Box>
       <Footer />
-    </ThemeProvider>
+    </div>
   );
 }
