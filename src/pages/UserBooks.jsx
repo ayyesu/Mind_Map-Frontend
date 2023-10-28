@@ -46,7 +46,7 @@ const UserBooks = () => {
             <Typography variant="h6">No Books Uploaded</Typography>
           </div>
         ) : (
-          <div>
+          <div className="userBook-area">
             {userBooks.map((book) => (
               <Card key={book._id} style={{ maxWidth: 245, margin: "10px" }}>
                 <CardMedia

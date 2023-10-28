@@ -298,6 +298,32 @@ p {
   border-radius: 5px;
 }
 
+.userBook-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90vw;
+  margin: 0 auto;
+}
+
+.delete-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: rgb(56, 104, 210);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  top: -15px;
+  right: -15px;
+  font-family: "Raleway", sans-serif;
+  z-index: 2;
+}
+
 .download-btn {
   padding: 10px 20px;
   background-color: #007bff;
