@@ -57,7 +57,7 @@ export default function SignIn() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <img src="/img/mindmap-logo.png" alt="logo" width="85px" />
+              <img src="/img/logo.png" alt="logo" width="85px" />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in to your account

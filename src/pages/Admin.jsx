@@ -29,6 +29,9 @@ const Admin = () => {
   return (
     <div>
       <Container className="admin-container">
+        <div className="admin-logo ">
+          <img src="/img/logo.png" alt="logo" width="150px" />
+        </div>
         <div className="admin-div">
           <div>
             <h1 className="admin-header">Admin Console</h1>

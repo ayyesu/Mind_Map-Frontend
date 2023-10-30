@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 .nav {
-  background-color: rgb(47, 104, 227);
+  background-color: #2196f3;
 }
 
 .profile-menu {
@@ -42,6 +42,12 @@ p {
   background: #2196f32e;
   align-items: center;
   padding: 80px;
+}
+
+.admin-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .admin-homelogo {
@@ -221,7 +227,7 @@ p {
 }
 
 .book-area {
-  background-color: #4b81bb;
+  background-color: #2196f32e;
 }
 
 .book-cover {
@@ -315,6 +321,11 @@ p {
 
 .book-detail-body {
   background-color: #2196f32e;
+}
+
+.book-detail-btn {
+  display: flex;
+  gap: 1em;
 }
 
 .book-detail .show-more {
