@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Container,
   TextField,
@@ -8,22 +8,39 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import { Link } from "@mui/material";
 import PdfUploader from "../components/PdfUploader";
 import ImageUploader from "../components/ImageUploader";
 import { BookContext } from "../context/BookContext";
 
-const Admin = () => {
+const UpdateBook = ({ bookId }) => {
   const {
     updateBookInfo,
     bookInfo,
-    handleAddingBook,
+    handleUpdateBook,
     imageUrl,
     fileUrl,
     handleImageUpload,
     handleFileUpload,
+    fetchSingleBook,
+    bookDetails,
   } = useContext(BookContext);
+
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      await fetchSingleBook(bookId);
+      setLoaded(true);
+    };
+
+    fetchDetails();
+  }, [bookId]);
+
+  if (!loaded) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <div>
@@ -33,7 +50,7 @@ const Admin = () => {
         </div>
         <div className="admin-div">
           <div>
-            <h1 className="admin-header">Admin Console</h1>
+            <h1 className="admin-header">Update Ebook Details</h1>
           </div>
           <div className="admin-homelogo">
             <Link component={RouterLink} to="/">
@@ -53,10 +70,11 @@ const Admin = () => {
           </div>
         </div>
 
-        <form onSubmit={handleAddingBook} className="admin-form">
+        <form onSubmit={handleUpdateBook} className="admin-form">
           <TextField
             label="Title"
             name="title"
+            value={bookDetails.title}
             className="form-field"
             onChange={(e) => {
               updateBookInfo({
@@ -68,6 +86,7 @@ const Admin = () => {
           <TextField
             label="Author"
             name="author"
+            value={bookInfo.author}
             className="form-field"
             onChange={(e) => {
               updateBookInfo({
@@ -79,6 +98,7 @@ const Admin = () => {
           <TextField
             label="Description"
             name="description"
+            value={bookInfo.description}
             className="form-field"
             multiline
             rows={12}
@@ -100,7 +120,7 @@ const Admin = () => {
             label="Image Url"
             name="imageUrl"
             className="form-field"
-            value={imageUrl || ""}
+            value={bookInfo.imageUrl || ""}
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -112,7 +132,7 @@ const Admin = () => {
             label="File Url"
             name="fileUrl"
             className="form-field"
-            value={fileUrl || ""}
+            value={bookInfo.fileUrl || ""}
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -153,6 +173,7 @@ const Admin = () => {
             label="Price (GH₵)"
             name="price"
             className="form-field"
+            value={bookInfo.price}
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -161,7 +182,7 @@ const Admin = () => {
             }}
           />
           <Button type="submit" variant="contained" color="primary">
-            Add Book
+            Update Book
           </Button>
         </form>
       </Container>
@@ -169,4 +190,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default UpdateBook;
