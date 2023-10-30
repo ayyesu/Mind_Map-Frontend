@@ -7,6 +7,7 @@ export default function Footer(props) {
     <Typography
       variant="body2"
       color="text.secondary"
+      style={{ backgroundColor: "#2196f32e" }}
       align="center"
       {...props}
     >

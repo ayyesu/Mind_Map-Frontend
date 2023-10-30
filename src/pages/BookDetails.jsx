@@ -46,9 +46,10 @@ export default function BookDetailsPage() {
     <div>
       <CssBaseline />
       <NavBar />
-      <main>
+      <div className="book-detail-body">
         {/* Hero unit */}
         <Box
+          style={{ backgroundColor: "#2196f32e" }}
           sx={{
             bgcolor: "background.paper",
             pt: 8,
@@ -169,7 +170,7 @@ export default function BookDetailsPage() {
             </div>
           </Container>
         </Box>
-      </main>
+      </div>
       <Footer />
     </div>
   );

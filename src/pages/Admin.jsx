@@ -16,20 +16,6 @@ import ImageUploader from "../components/ImageUploader";
 import { BookContext } from "../context/BookContext";
 
 const Admin = () => {
-  const defaultTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#8d6e63", // Use a shade of brown for the primary color
-      },
-      secondary: {
-        main: "#a1887f", // Use a lighter shade of brown for the secondary color
-      },
-      background: {
-        default: "#f5e0cb", // Use a light brown for the background color
-      },
-    },
-  });
-
   const {
     updateBookInfo,
     bookInfo,
@@ -41,26 +27,25 @@ const Admin = () => {
   } = useContext(BookContext);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <div>
       <Container className="admin-container">
         <div className="admin-div">
           <div>
             <h1 className="admin-header">Admin Console</h1>
           </div>
-          <div>
+          <div className="admin-homelogo">
             <Link component={RouterLink} to="/">
               <p className="link">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
                   height="30"
-                  fill="currentColor"
+                  fill="#2196f32e"
                   className="bi bi-house"
                   viewBox="0 0 16 16"
                 >
                   <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
                 </svg>
-                Home
               </p>
             </Link>
           </div>
@@ -70,6 +55,7 @@ const Admin = () => {
           <TextField
             label="Title"
             name="title"
+            className="form-field"
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -80,6 +66,7 @@ const Admin = () => {
           <TextField
             label="Author"
             name="author"
+            className="form-field"
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -90,6 +77,7 @@ const Admin = () => {
           <TextField
             label="Description"
             name="description"
+            className="form-field"
             multiline
             rows={12}
             onChange={(e) => {
@@ -109,6 +97,7 @@ const Admin = () => {
           <TextField
             label="Image Url"
             name="imageUrl"
+            className="form-field"
             value={imageUrl || ""}
             onChange={(e) => {
               updateBookInfo({
@@ -120,6 +109,7 @@ const Admin = () => {
           <TextField
             label="File Url"
             name="fileUrl"
+            className="form-field"
             value={fileUrl || ""}
             onChange={(e) => {
               updateBookInfo({
@@ -133,6 +123,7 @@ const Admin = () => {
             <Select
               label="Category"
               name="category"
+              className="form-field"
               value={bookInfo.category || ""}
               onChange={(e) => {
                 updateBookInfo({
@@ -159,6 +150,7 @@ const Admin = () => {
           <TextField
             label="Price (GH₵)"
             name="price"
+            className="form-field"
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
@@ -171,7 +163,7 @@ const Admin = () => {
           </Button>
         </form>
       </Container>
-    </ThemeProvider>
+    </div>
   );
 };
 
