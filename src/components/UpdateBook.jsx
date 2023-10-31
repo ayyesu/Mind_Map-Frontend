@@ -8,35 +8,40 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { Link as RouterLink, useParams } from "react-router-dom";
-import { Link } from "@mui/material";
-import PdfUploader from "../components/PdfUploader";
-import ImageUploader from "../components/ImageUploader";
+// import { Link as RouterLink, useParams } from "react-router-dom";
+// import { Link } from "@mui/material";
+// import PdfUploader from "../components/PdfUploader";
+// import ImageUploader from "../components/ImageUploader";
 import { BookContext } from "../context/BookContext";
 
 const UpdateBook = ({ bookId }) => {
-  const {
-    updateBookInfo,
-    bookInfo,
-    handleUpdateBook,
-    imageUrl,
-    fileUrl,
-    handleImageUpload,
-    handleFileUpload,
-    fetchSingleBook,
-    bookDetails,
-  } = useContext(BookContext);
+  const { updateBookInfo, bookInfo, handleUpdateBook, fetchSingleBook } =
+    useContext(BookContext);
+
+  console.log("Book Info", bookInfo);
 
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchDetails = async () => {
       await fetchSingleBook(bookId);
-      setLoaded(true);
+      if (isMounted) {
+        setLoaded(true);
+      }
     };
 
     fetchDetails();
+
+    return () => {
+      isMounted = false;
+    };
   }, [bookId]);
+
+  const updateBook = async (bookId, bookInfo) => {
+    await handleUpdateBook(bookId, bookInfo);
+  };
 
   if (!loaded) {
     return <h2>Loading...</h2>;
@@ -52,29 +57,19 @@ const UpdateBook = ({ bookId }) => {
           <div>
             <h1 className="admin-header">Update Ebook Details</h1>
           </div>
-          <div className="admin-homelogo">
-            <Link component={RouterLink} to="/">
-              <p className="link">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="#2196f32e"
-                  className="bi bi-house"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
-                </svg>
-              </p>
-            </Link>
-          </div>
         </div>
 
-        <form onSubmit={handleUpdateBook} className="admin-form">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            updateBook(bookId, bookInfo);
+          }}
+          className="admin-form"
+        >
           <TextField
             label="Title"
             name="title"
-            value={bookDetails.title}
+            value={bookInfo.title}
             className="form-field"
             onChange={(e) => {
               updateBookInfo({
@@ -109,37 +104,37 @@ const UpdateBook = ({ bookId }) => {
               });
             }}
           />
-          <div className="pad-loading">
+          {/* <div className="pad-loading">
             <ImageUploader onImageSelect={handleImageUpload} />
           </div>
           <hr />
           <div className="pad-loading">
             <PdfUploader onFileSelect={handleFileUpload} />
-          </div>
-          <TextField
+          </div> */}
+          {/* <TextField
             label="Image Url"
             name="imageUrl"
             className="form-field"
-            value={bookInfo.imageUrl || ""}
+            value={bookInfo.imageUrl}
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
                 imageUrl: e.target.value,
               });
             }}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             label="File Url"
             name="fileUrl"
             className="form-field"
-            value={bookInfo.fileUrl || ""}
+            value={bookInfo.fileUrl}
             onChange={(e) => {
               updateBookInfo({
                 ...bookInfo,
                 fileUrl: e.target.value,
               });
             }}
-          />
+          /> */}
           <FormControl>
             <InputLabel>Category</InputLabel>
             <Select
@@ -169,7 +164,7 @@ const UpdateBook = ({ bookId }) => {
               ))}
             </Select>
           </FormControl>
-          <TextField
+          {/* <TextField
             label="Price (GH₵)"
             name="price"
             className="form-field"
@@ -180,7 +175,7 @@ const UpdateBook = ({ bookId }) => {
                 price: e.target.value,
               });
             }}
-          />
+          /> */}
           <Button type="submit" variant="contained" color="primary">
             Update Book
           </Button>

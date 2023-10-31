@@ -34,6 +34,8 @@ export const BookContextProvider = ({ children }) => {
     fileUrl,
   });
 
+  console.log("Book Info", bookInfo);
+
   const updateBookInfo = useCallback((info) => {
     setBookInfo(info);
   }, []);
@@ -210,30 +212,27 @@ export const BookContextProvider = ({ children }) => {
     [bookInfo]
   );
 
-  const handleUpdateBook = useCallback(
-    async (bookId) => {
-      setUpdatingBook(true);
-      try {
-        const response = await updateRequest(
-          `${baseUrl}/api/books/${bookId}/update-book`,
-          JSON.stringify({ ...bookInfo, imageUrl, fileUrl })
-        );
+  const handleUpdateBook = useCallback(async (bookId, bookInfo) => {
+    setUpdatingBook(true);
+    try {
+      const response = await updateRequest(
+        `${baseUrl}/api/books/${bookId}/update-book`,
+        JSON.stringify(bookInfo)
+      );
 
-        setUpdatingBook(false);
+      setUpdatingBook(false);
 
-        if (response.error) {
-          toast.error(response.message);
-        } else {
-          toast.success("Book Added Successfully");
-          window.location.href = `/book/${bookId}`;
-        }
-      } catch (error) {
-        console.error("An error occurred adding book:", error);
-        setUpdatingBook(false);
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success("Book Updated Successfully");
+        // window.location.href = `/book/${bookId}`;
       }
-    },
-    [bookInfo]
-  );
+    } catch (error) {
+      console.error("An error occurred adding book:", error);
+      setUpdatingBook(false);
+    }
+  }, []);
 
   return (
     <BookContext.Provider

@@ -33,7 +33,6 @@ export const postRequest = async (url, body) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     if (response.status.error) {
       let message;
       if (response.data?.message) {
@@ -106,13 +105,13 @@ export const deleteRequest = async (url) => {
 // Update Request
 export const updateRequest = async (url, body) => {
   try {
-    const response = await axios.update(url, body, {
+    const response = await axios.patch(url, body, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
-    if (response.status.error) {
+
+    if (response.status !== 200) {
       let message;
       if (response.data?.message) {
         message = response.data.message;
