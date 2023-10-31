@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BookContext } from "../context/BookContext";
 import {
   Button,
@@ -10,15 +10,27 @@ import {
 } from "@mui/material";
 import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
+import Modal from "react-modal";
+import UpdateBook from "../components/updateBook";
 
 const UserBooks = () => {
-  const { userBooks, fetchUserBooks, handleDeleteBook } =
+  const { userBooks, fetchUserBooks, handleDeleteBook, handleUpdateBook } =
     useContext(BookContext);
+  const [modalIsOpen, setModalIsOpen] = useState(false); // State for modal
+
   const { userId } = useParams();
 
   useEffect(() => {
     fetchUserBooks(userId);
   }, [userId]);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   return (
     <div>
@@ -67,8 +79,26 @@ const UserBooks = () => {
                     Date Added: {new Date(book.createdAt).toLocaleDateString()}
                   </Typography>
                 </CardContent>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={closeModal}
+                  contentLabel={book.title}
+                >
+                  <button
+                    title="Close"
+                    className="delete-icon"
+                    onClick={closeModal}
+                  >
+                    x
+                  </button>
+                  <UpdateBook bookId={book._id} />
+                </Modal>
                 <CardActions>
-                  <Button variant="outlined" color="primary">
+                  <Button
+                    onClick={() => openModal()}
+                    variant="outlined"
+                    color="primary"
+                  >
                     Update
                   </Button>
                   <Button

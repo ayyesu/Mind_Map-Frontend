@@ -5,6 +5,7 @@ import {
   getRequest,
   filePostRequest,
   deleteRequest,
+  updateRequest,
 } from "../utils/Service";
 import { toast } from "react-toastify";
 
@@ -12,6 +13,7 @@ export const BookContext = createContext();
 
 export const BookContextProvider = ({ children }) => {
   const [addingBook, setAddingBook] = useState(false);
+  const [updatingBook, setUpdatingBook] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [imageLinkLoading, setImageLinkLoading] = useState(false);
   const [fileLinkLoading, setFileLinkLoading] = useState(false);
@@ -32,6 +34,8 @@ export const BookContextProvider = ({ children }) => {
     fileUrl,
   });
 
+  console.log("Book Info", bookInfo);
+
   const updateBookInfo = useCallback((info) => {
     setBookInfo(info);
   }, []);
@@ -44,6 +48,7 @@ export const BookContextProvider = ({ children }) => {
         toast.error(response?.message);
       } else {
         setBookDetails(response);
+        setBookInfo(response);
       }
     } catch (error) {
       console.error("An error occurred fetching the book:", error);
@@ -207,6 +212,28 @@ export const BookContextProvider = ({ children }) => {
     [bookInfo]
   );
 
+  const handleUpdateBook = useCallback(async (bookId, bookInfo) => {
+    setUpdatingBook(true);
+    try {
+      const response = await updateRequest(
+        `${baseUrl}/api/books/${bookId}/update-book`,
+        JSON.stringify(bookInfo)
+      );
+
+      setUpdatingBook(false);
+
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success("Book Updated Successfully");
+        // window.location.href = `/book/${bookId}`;
+      }
+    } catch (error) {
+      console.error("An error occurred adding book:", error);
+      setUpdatingBook(false);
+    }
+  }, []);
+
   return (
     <BookContext.Provider
       value={{
@@ -232,6 +259,8 @@ export const BookContextProvider = ({ children }) => {
         fetchUserBooks,
         userBooks,
         handleDeleteBook,
+        handleUpdateBook,
+        updatingBook,
       }}
     >
       {children}

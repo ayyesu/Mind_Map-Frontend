@@ -33,7 +33,6 @@ export const postRequest = async (url, body) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     if (response.status.error) {
       let message;
       if (response.data?.message) {
@@ -100,5 +99,30 @@ export const deleteRequest = async (url) => {
     return {
       error: "Something happened fetching data, Our team will be working on it",
     };
+  }
+};
+
+// Update Request
+export const updateRequest = async (url, body) => {
+  try {
+    const response = await axios.patch(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status !== 200) {
+      let message;
+      if (response.data?.message) {
+        message = response.data.message;
+      } else {
+        message = "An error occurred";
+      }
+      return { error: true, message };
+    }
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred making the request:", error);
+    return { error: true, message: error.response.data.message };
   }
 };

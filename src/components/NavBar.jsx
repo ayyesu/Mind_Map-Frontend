@@ -193,7 +193,7 @@ export default function NavBar() {
             component={RouterLink}
             to={`/user/posts/${user?.user._id}`}
           >
-            <MenuItem>Posts</MenuItem>
+            <MenuItem>Manage Posts</MenuItem>
           </Link>
         </Grid>
       )}
@@ -245,7 +245,7 @@ export default function NavBar() {
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             <Link component={RouterLink} to="/" className="logo">
-              <img src="/img/mindmap-logo.png" alt="logo" width="85px" />
+              <img src="/img/logo.png" alt="logo" width="85px" />
             </Link>
           </Typography>
           <Search>
