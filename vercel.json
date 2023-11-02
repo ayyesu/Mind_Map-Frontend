@@ -1,11 +1,12 @@
 {
-  "rewrites": [
-    { "source": "/signin", "destination": "/pages/SignIn.js" },
-    { "source": "/signup", "destination": "/pages/SignUp.js" },
-    { "source": "/unauthorized", "destination": "/pages/Unauthorized.js" },
-    { "source": "/admin/:userId", "destination": "/pages/Admin.js" },
-    { "source": "/user/posts/:userId", "destination": "/pages/UserBooks.js" },
-    { "source": "/book/:bookId", "destination": "/pages/BookDetails.js" },
-    { "source": "/:path*", "destination": "/pages/NotFound.js" }
+  "routes": [
+    {"src": "/", "dest": "/"},
+    { "src": "/signin", "dest": "/pages/SignIn.jsx" },
+    { "src": "/signup", "dest": "/pages/SignUp.jsx" },
+    { "src": "/unauthorized", "dest": "/pages/Unauthorized.jsx" },
+    { "src": "/admin/:userId", "dest": "/pages/Admin.jsx" },
+    { "src": "/user/posts/:userId", "dest": "/pages/UserBooks.jsx" },
+    { "src": "/book/:bookId", "dest": "/pages/BookDetails.jsx" },
+    { "src": "/:path*", "dest": "/pages/NotFound.jsx" }
   ]
 }
