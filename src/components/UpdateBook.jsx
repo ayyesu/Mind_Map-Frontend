@@ -8,10 +8,6 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-// import { Link as RouterLink, useParams } from "react-router-dom";
-// import { Link } from "@mui/material";
-// import PdfUploader from "../components/PdfUploader";
-// import ImageUploader from "../components/ImageUploader";
 import { BookContext } from "../context/BookContext";
 
 const UpdateBook = ({ bookId }) => {
@@ -104,37 +100,7 @@ const UpdateBook = ({ bookId }) => {
               });
             }}
           />
-          {/* <div className="pad-loading">
-            <ImageUploader onImageSelect={handleImageUpload} />
-          </div>
-          <hr />
-          <div className="pad-loading">
-            <PdfUploader onFileSelect={handleFileUpload} />
-          </div> */}
-          {/* <TextField
-            label="Image Url"
-            name="imageUrl"
-            className="form-field"
-            value={bookInfo.imageUrl}
-            onChange={(e) => {
-              updateBookInfo({
-                ...bookInfo,
-                imageUrl: e.target.value,
-              });
-            }}
-          /> */}
-          {/* <TextField
-            label="File Url"
-            name="fileUrl"
-            className="form-field"
-            value={bookInfo.fileUrl}
-            onChange={(e) => {
-              updateBookInfo({
-                ...bookInfo,
-                fileUrl: e.target.value,
-              });
-            }}
-          /> */}
+
           <FormControl>
             <InputLabel>Category</InputLabel>
             <Select
@@ -164,18 +130,7 @@ const UpdateBook = ({ bookId }) => {
               ))}
             </Select>
           </FormControl>
-          {/* <TextField
-            label="Price (GH₵)"
-            name="price"
-            className="form-field"
-            value={bookInfo.price}
-            onChange={(e) => {
-              updateBookInfo({
-                ...bookInfo,
-                price: e.target.value,
-              });
-            }}
-          /> */}
+
           <Button type="submit" variant="contained" color="primary">
             Update Book
           </Button>

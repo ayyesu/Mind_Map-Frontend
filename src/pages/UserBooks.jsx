@@ -11,7 +11,7 @@ import {
 import NavBar from "../components/NavBar";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
-import UpdateBook from "../components/updateBook";
+import UpdateBook from "../components/UpdateBook";
 
 const UserBooks = () => {
   const { userBooks, fetchUserBooks, handleDeleteBook, handleUpdateBook } =
