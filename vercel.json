@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/signin", "destination": "/pages/SignIn.js" },
+    { "source": "/signup", "destination": "/pages/SignUp.js" },
+    { "source": "/unauthorized", "destination": "/pages/Unauthorized.js" },
+    { "source": "/admin/:userId", "destination": "/pages/Admin.js" },
+    { "source": "/user/posts/:userId", "destination": "/pages/UserBooks.js" },
+    { "source": "/book/:bookId", "destination": "/pages/BookDetails.js" },
+    { "source": "/:path*", "destination": "/pages/NotFound.js" }
+  ]
+}
