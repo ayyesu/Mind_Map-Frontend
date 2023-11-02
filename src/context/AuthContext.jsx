@@ -1,12 +1,10 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { baseUrl, postRequest } from "../utils/Service";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const history = useHistory();
   const [user, setUser] = useState(null);
   const [signingup, setSigningUp] = useState(false);
   const [loggingIn, setLoggingIn] = useState(false);
