@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "http://localhost:5000";
+export const baseUrl = "https://mind-map-api.onrender.com";
 
 // GET request
 export const getRequest = async (url) => {
