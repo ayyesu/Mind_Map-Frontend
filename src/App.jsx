@@ -12,6 +12,7 @@ import ProtectedRoute from "./ProtectedRoutes";
 import AdminRoute from "./AdminRoute";
 import Unauthorized from "./pages/Unauthorized";
 import UserBooks from "./pages/UserBooks";
+import AdminRequestForm from "./pages/AdminRequest";
 
 function App() {
   register();
@@ -31,6 +32,7 @@ function App() {
         <Route path="/signin" exact element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/request-admin" element={<AdminRequestForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
