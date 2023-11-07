@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { TextField, Button, Box, Container, Typography } from "@mui/material";
 import { baseUrl } from "../utils/Service";
+import { toast } from "react-toastify";
 
 const AdminRequestForm = () => {
   const [username, setUserName] = useState("");
@@ -9,14 +11,6 @@ const AdminRequestForm = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
   const [messageError, setMessageError] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
