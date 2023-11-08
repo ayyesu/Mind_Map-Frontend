@@ -1,12 +1,20 @@
 {
-  "routes": [
-    {"src": "/", "dest": "/"},
-    { "src": "/signin", "dest": "/pages/SignIn.jsx" },
-    { "src": "/signup", "dest": "/pages/SignUp.jsx" },
-    { "src": "/unauthorized", "dest": "/pages/Unauthorized.jsx" },
-    { "src": "/admin/:userId", "dest": "/pages/Admin.jsx" },
-    { "src": "/user/posts/:userId", "dest": "/pages/UserBooks.jsx" },
-    { "src": "/book/:bookId", "dest": "/pages/BookDetails.jsx" },
-    { "src": "/:path*", "dest": "/pages/NotFound.jsx" }
+  "rewrites": [
+    { "source": "/signin", "destination": "./source/pages/SignIn.jsx" },
+    { "source": "/signup", "destination": "./source/pages/SignUp.jsx" },
+    {
+      "source": "/unauthorized",
+      "destination": "./source/pages/Unauthorized.jsx"
+    },
+    { "source": "/admin/:userId", "destination": "./source/pages/Admin.jsx" },
+    {
+      "source": "/user/posts/:userId",
+      "destination": "./source/pages/UserBooks.jsx"
+    },
+    {
+      "source": "/book/:bookId",
+      "destination": "./source/pages/BookDetails.jsx"
+    },
+    { "source": "/:path*", "destination": "./src/pages/NotFound.jsx" }
   ]
 }
