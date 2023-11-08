@@ -30,7 +30,7 @@ const defaultTheme = createTheme({
 
 export default function Home() {
   const { user } = useContext(AuthContext);
-  const { books, loading, searchQuery, setSearchQuery } =
+  const { books, loading, searchQuery } =
     useContext(BookContext);
   const [page, setPage] = useState(1);
 
