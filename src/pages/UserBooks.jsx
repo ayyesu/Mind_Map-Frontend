@@ -60,7 +60,16 @@ const UserBooks = () => {
         ) : (
           <div className="userBook-area">
             {userBooks.map((book) => (
-              <Card key={book._id} style={{ maxWidth: 245, margin: "10px" }}>
+              <Card
+                key={book._id}
+                style={{
+                  maxWidth: 245,
+                  margin: "10px",
+                  cursor: "pointer",
+                  transition: "transform 0.3s ease-in-out", 
+                }}
+                className="card-hover"
+              >
                 <CardMedia
                   component="img"
                   alt={book.title}
