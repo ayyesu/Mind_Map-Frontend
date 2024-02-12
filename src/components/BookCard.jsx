@@ -37,10 +37,11 @@ const BookCard = ({imageUrl, title, description}) => {
                     variant='h6'
                     component='h4'
                     fontSize='1.0rem'
+                    fontFamily={'Inter'}
                 >
                     {truncatedtitle}
                 </Typography>
-                <Typography fontSize='0.8rem'>
+                <Typography fontSize='0.8rem' fontFamily={'Inter'}>
                     {truncatedDescription}
                 </Typography>
             </CardContent>

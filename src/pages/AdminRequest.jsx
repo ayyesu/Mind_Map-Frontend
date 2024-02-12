@@ -47,10 +47,20 @@ const AdminRequestForm = () => {
         <div className='admin-request' style={{marginTop: 0}}>
             <Container maxWidth='sm'>
                 <Box mt={5}>
-                    <Typography variant='h4' align='center' gutterBottom>
+                    <Typography
+                        fontFamily={'Inter'}
+                        variant='h4'
+                        align='center'
+                        gutterBottom
+                    >
                         Publisher Right Request Form
                     </Typography>
-                    <Typography variant='body1' align='center' gutterBottom>
+                    <Typography
+                        fontFamily={'Inter'}
+                        variant='body1'
+                        align='center'
+                        gutterBottom
+                    >
                         We're thrilled to hear that you're interested in
                         contributing to our community by publishing books! To
                         get started, we kindly ask you to fill out the Admin
@@ -95,6 +105,7 @@ const AdminRequestForm = () => {
                         <Button
                             variant='contained'
                             color='primary'
+                            fontFamily={'Inter'}
                             type='submit'
                             fullWidth
                         >
