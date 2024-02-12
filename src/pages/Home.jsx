@@ -90,6 +90,7 @@ export default function Home() {
                                 boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                                 border: '2px solid #87CEFA',
                                 color: 'text.secondary',
+                                fontFamily: 'Inter',
                             }}
                             gutterBottom
                         >

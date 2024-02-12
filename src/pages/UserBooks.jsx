@@ -51,6 +51,7 @@ const UserBooks = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         marginTop: '20px',
+                        fontFamily: 'Inter',
                     }}
                 >
                     Manage Books
@@ -62,6 +63,7 @@ const UserBooks = () => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             height: '50vh',
+                            fontFamily: 'Inter',
                         }}
                     >
                         <Typography variant='h6'>No Books Uploaded</Typography>
@@ -76,6 +78,7 @@ const UserBooks = () => {
                                     margin: '10px',
                                     cursor: 'pointer',
                                     transition: 'transform 0.3s ease-in-out',
+                                    fontFamily: 'Inter',
                                 }}
                                 className='card-hover'
                             >
@@ -87,17 +90,22 @@ const UserBooks = () => {
                                     image={book.imageUrl}
                                 />
                                 <CardContent>
-                                    <Typography variant='h6'>
+                                    <Typography
+                                        fontFamily={'Inter'}
+                                        variant='h6'
+                                    >
                                         {book.title.slice(0, 20) + '...'}
                                     </Typography>
                                     <Typography
                                         variant='body2'
                                         color='text.secondary'
+                                        fontFamily={'Inter'}
                                     >
                                         Author: {book.author}
                                     </Typography>
                                     <Typography
                                         variant='body2'
+                                        fontFamily={'Inter'}
                                         color='text.secondary'
                                     >
                                         Date Added:{' '}
@@ -125,6 +133,7 @@ const UserBooks = () => {
                                         onClick={() => openModal()}
                                         variant='outlined'
                                         color='primary'
+                                        fontFamily={'Inter'}
                                     >
                                         Update
                                     </Button>
@@ -132,6 +141,7 @@ const UserBooks = () => {
                                         onClick={() => confirmDelete(book._id)}
                                         variant='outlined'
                                         color='error'
+                                        fontFamily={'Inter'}
                                     >
                                         Delete
                                     </Button>

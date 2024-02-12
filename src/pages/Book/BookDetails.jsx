@@ -50,12 +50,11 @@ export default function BookDetailsPage() {
 
     return (
         <div>
-            <CssBaseline />
             <NavBar />
             <div className='book-detail-body'>
                 {/* Hero unit */}
                 <Box
-                    style={{backgroundColor: '#2196f32e'}}
+                    style={{backgroundColor: '#2196f32e', height: '200%'}}
                     sx={{
                         bgcolor: 'background.paper',
                         pt: 8,
@@ -94,11 +93,16 @@ export default function BookDetailsPage() {
                                 style={{
                                     fontSize: '1rem',
                                     marginBottom: '0.5rem',
+                                    fontFamily: 'Inter',
                                 }}
                             >
                                 By {bookDetails.author}
                             </pre>
-                            <pre>
+                            <pre
+                                style={{
+                                    fontFamily: 'Inter',
+                                }}
+                            >
                                 Last Updated:{' '}
                                 <span>
                                     {moment(bookDetails.createdAt).calendar()}
