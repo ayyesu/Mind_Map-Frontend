@@ -32,6 +32,15 @@ const UserBooks = () => {
         setModalIsOpen(false);
     };
 
+    const confirmDelete = (bookId) => {
+        const confirmDelete = window.confirm(
+            'Are you sure you want to delete this book?',
+        );
+        if (confirmDelete) {
+            handleDeleteBook(bookId);
+        }
+    };
+
     return (
         <div>
             <NavBar />
@@ -120,9 +129,7 @@ const UserBooks = () => {
                                         Update
                                     </Button>
                                     <Button
-                                        onClick={() =>
-                                            handleDeleteBook(book._id)
-                                        }
+                                        onClick={() => confirmDelete(book._id)}
                                         variant='outlined'
                                         color='error'
                                     >
