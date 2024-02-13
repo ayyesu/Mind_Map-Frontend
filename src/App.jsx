@@ -31,10 +31,13 @@ function App() {
                         <Route path='/admin/:userId' element={<Admin />} />
                         <Route
                             path='/user/posts/:userId'
-                            element={<UserBooks />}
+                            element={user ? <UserBooks /> : <SignIn />}
                         />
                     </Route>
-                    <Route path='/book/:bookId' element={<BookDetailsPage />} />
+                    <Route
+                        path='/book/:bookId'
+                        element={user ? <BookDetailsPage /> : <SignIn />}
+                    />
                 </Route>
                 <Route
                     path='/signin'
