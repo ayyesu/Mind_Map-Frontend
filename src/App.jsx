@@ -26,7 +26,7 @@ function App() {
             <ToastContainer />
             <Routes>
                 <Route element={<ProtectedRoute />}>
-                    <Route path='/' element={user ? <Home /> : null} />
+                    <Route path='/' element={user ? <Home /> : <SignIn />} />
                     <Route element={<AdminRoute />}>
                         <Route path='/admin/:userId' element={<Admin />} />
                         <Route
