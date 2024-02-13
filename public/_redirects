@@ -1,1 +1,12 @@
 /*    /index.html   200
+
+/signin    /index.html    200
+/signup    /index.html    200
+/unauthorized    /index.html    200
+/request-admin    /index.html    200
+
+/admin/:userId/*    /index.html    200
+/user/posts/:userId/*    /index.html    200
+/book/:bookId/*    /index.html    200
+
+/*    /index.html    200
