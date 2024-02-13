@@ -1,3 +1,4 @@
+import React, {useContext} from 'react';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
@@ -17,12 +18,14 @@ import AdminRequestForm from './pages/AdminRequest';
 function App() {
     register();
 
+    const {user} = useContext(AuthContext);
+
     return (
         <Router>
             <ToastContainer />
             <Routes>
                 <Route element={<ProtectedRoute />}>
-                    <Route path='/' element={<Home />} />
+                    <Route path='/' element={user ? <Home /> : null} />
                     <Route element={<AdminRoute />}>
                         <Route path='/admin/:userId' element={<Admin />} />
                         <Route
