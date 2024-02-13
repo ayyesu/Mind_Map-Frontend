@@ -14,6 +14,7 @@ import AdminRoute from './AdminRoute';
 import Unauthorized from './pages/Unauthorized';
 import UserBooks from './pages/UserBooks';
 import AdminRequestForm from './pages/AdminRequest';
+import {AuthContext} from './context/AuthContext';
 
 function App() {
     register();
