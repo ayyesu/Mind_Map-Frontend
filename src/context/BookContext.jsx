@@ -24,6 +24,8 @@ export const BookContextProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [bookDetails, setBookDetails] = useState({});
     const [searchQuery, setSearchQuery] = useState('');
+    const [imageName, setImageName] = useState('');
+    const [fileName, setFileName] = useState('');
     const [userBooks, setUserBooks] = useState([]);
     const [randomisedBookDetails, setRandomisedBookDetails] = useState([]);
     const [bookInfo, setBookInfo] = useState({
@@ -32,10 +34,8 @@ export const BookContextProvider = ({children}) => {
         description: '',
         category: '',
         price: '',
-        imageUrl,
-        fileUrl,
     });
-
+    console.log('File Name', fileName);
     console.log('Book Info', bookInfo);
 
     const updateBookInfo = useCallback(
@@ -145,6 +145,7 @@ export const BookContextProvider = ({children}) => {
             toast.error(response?.message);
             setImageLinkLoading(false);
         } else {
+            setImageName(response.name);
             setImageUrl(response.downloadURL);
             setImageLinkLoading(false);
             toast.success('Image Uploaded Successfully');
@@ -166,6 +167,7 @@ export const BookContextProvider = ({children}) => {
             toast.error(response?.message);
             setFileLinkLoading(false);
         } else {
+            setFileName(response.name);
             setFileUrl(response.downloadURL);
             setFileLinkLoading(false);
             toast.success('Image Uploaded Successfully');
@@ -187,7 +189,13 @@ export const BookContextProvider = ({children}) => {
 
                 const response = await postRequest(
                     `${baseUrl}/api/books/${userId}/add-book`,
-                    JSON.stringify({...bookInfo, imageUrl, fileUrl}),
+                    JSON.stringify({
+                        ...bookInfo,
+                        imageUrl,
+                        fileUrl,
+                        imageName,
+                        fileName,
+                    }),
                 );
 
                 setAddingBook(false);
@@ -196,6 +204,10 @@ export const BookContextProvider = ({children}) => {
                     toast.error(response.message);
                 } else {
                     toast.success('Book Added Successfully');
+                    setImageName('');
+                    setFileName('');
+                    setImageUrl('');
+                    setFileUrl('');
                     window.location.href = `/user/posts/${userId}`;
                 }
             } catch (error) {
@@ -207,25 +219,22 @@ export const BookContextProvider = ({children}) => {
     );
 
     // Deleting a book
-    const handleDeleteBook = useCallback(
-        async (bookId) => {
-            try {
-                const response = await deleteRequest(
-                    `${baseUrl}/api/books/${bookId}/delete`,
-                );
+    const handleDeleteBook = useCallback(async (bookId) => {
+        try {
+            const response = await deleteRequest(
+                `${baseUrl}/api/books/${bookId}/delete`,
+            );
 
-                if (response.error) {
-                    toast.error(response.message);
-                } else {
-                    toast.success('Book Deleted Successfully');
-                    window.location.reload();
-                }
-            } catch (error) {
-                console.error('An error occurred deleting book:', error);
+            if (response.error) {
+                toast.error(response.message);
+            } else {
+                toast.success('Book Deleted Successfully');
+                window.location.reload();
             }
-        },
-        [bookInfo],
-    );
+        } catch (error) {
+            console.error('An error occurred deleting book:', error);
+        }
+    }, []);
 
     const handleUpdateBook = useCallback(async (bookId, bookInfo) => {
         setUpdatingBook(true);
@@ -255,8 +264,6 @@ export const BookContextProvider = ({children}) => {
                 handleAddingBook,
                 handleImageUpload,
                 handleFileUpload,
-                imageUrl,
-                fileUrl,
                 setImageUrl,
                 bookDetails,
                 books,
