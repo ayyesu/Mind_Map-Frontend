@@ -26,7 +26,7 @@ function App() {
             <ToastContainer />
             <Routes>
                 <Route element={<ProtectedRoute />}>
-                    <Route path='/' element={user ? <Home /> : null} />
+                    <Route path='/' element={<Home />} />
                     <Route element={<AdminRoute />}>
                         <Route path='/admin/:userId' element={<Admin />} />
                         <Route
@@ -36,8 +36,12 @@ function App() {
                     </Route>
                     <Route path='/book/:bookId' element={<BookDetailsPage />} />
                 </Route>
-                <Route path='/signin' exact element={<SignIn />} />
-                <Route path='/signup' element={<SignUp />} />
+                <Route
+                    path='/signin'
+                    exact
+                    element={user ? <Home /> : <SignIn />}
+                />
+                <Route path='/signup' element={user ? <Home /> : <SignUp />} />
                 <Route path='/unauthorized' element={<Unauthorized />} />
                 <Route path='/request-admin' element={<AdminRequestForm />} />
                 <Route path='*' element={<NotFound />} />
