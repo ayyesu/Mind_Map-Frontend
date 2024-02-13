@@ -112,18 +112,18 @@ export default function SignIn() {
                             >
                                 {loggingIn ? '...' : 'Sign In'}
                             </Button>
-                            {/* <Grid container>
-                                <Grid item xs>
+                            <Grid container>
+                                {/* <Grid item xs>
                                     <Link to='#' variant='body2'>
                                         Forgot password?
                                     </Link>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item>
                                     <Link to='/signup' variant='body2'>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
-                            </Grid> */}
+                            </Grid>
                             <Footer sx={{mt: 5}} />
                         </Box>
                     </Box>
