@@ -84,6 +84,7 @@ const UserBooks = () => {
                             >
                                 <CardMedia
                                     component='img'
+                                    loading='lazy'
                                     alt={book.title}
                                     title={book.title}
                                     height='140'

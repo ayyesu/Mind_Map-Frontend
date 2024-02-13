@@ -21,6 +21,7 @@ const BookCard = ({imageUrl, title, description}) => {
             <CardMedia component='div' sx={{height: 240}}>
                 <img
                     src={imageUrl}
+                    loading='lazy'
                     className='bookCardImage'
                     alt='Book Cover'
                     title={title}
