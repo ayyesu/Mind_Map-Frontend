@@ -14,6 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {Link as RouterLink} from 'react-router-dom';
 import {Link} from '@mui/material';
+import {useLocation} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 import {BookContext} from '../context/BookContext';
 
@@ -271,6 +272,8 @@ export default function NavBar() {
         </Menu>
     );
 
+    const location = useLocation();
+
     return (
         <Box className='nav' sx={{flexGrow: 1}}>
             <AppBar position='static'>
@@ -285,16 +288,19 @@ export default function NavBar() {
                             <img src='/img/logo.png' alt='logo' width='85px' />
                         </Link>
                     </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder='Search…'
-                            inputProps={{'aria-label': 'search'}}
-                            onChange={handleSearch}
-                        />
-                    </Search>
+                    {location.pathname === '/' && (
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon />
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder='Search…'
+                                inputProps={{'aria-label': 'search'}}
+                                onChange={handleSearch}
+                            />
+                        </Search>
+                    )}
+
                     <Box sx={{flexGrow: 1}} />
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton

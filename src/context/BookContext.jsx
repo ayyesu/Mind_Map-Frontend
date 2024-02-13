@@ -38,9 +38,12 @@ export const BookContextProvider = ({children}) => {
 
     console.log('Book Info', bookInfo);
 
-    const updateBookInfo = useCallback((info) => {
-        setBookInfo(info);
-    }, []);
+    const updateBookInfo = useCallback(
+        (info) => {
+            setBookInfo(info);
+        },
+        [bookInfo],
+    );
 
     // Fetching a single book
     const fetchSingleBook = useCallback(async (bookId) => {
