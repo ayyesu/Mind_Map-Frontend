@@ -120,6 +120,7 @@ export default function Home() {
                         <div className='nothing-to-show'>
                             <img
                                 className='nothing-gif'
+                                loading='lazy'
                                 height={80}
                                 width={80}
                                 src='/img/nothing_to_show.gif'
