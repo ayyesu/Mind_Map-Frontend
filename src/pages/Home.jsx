@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -117,23 +116,35 @@ export default function Home() {
                 >
                     {/* End hero unit */}
 
-                    <Grid container spacing={4} width='100%'>
-                        {currentBooks.map((book) => (
-                            <Grid item key={book._id} xs={12} sm={6} md={4}>
-                                <Link
-                                    component={RouterLink}
-                                    to={`/book/${book._id}`}
-                                    sx={{textDecoration: 'none'}}
-                                >
-                                    <BookCard
-                                        imageUrl={book.imageUrl}
-                                        title={book.title}
-                                        description={book.description}
-                                    />
-                                </Link>
-                            </Grid>
-                        ))}
-                    </Grid>
+                    {currentBooks.length === 0 ? (
+                        <div className='nothing-to-show'>
+                            <img
+                                className='nothing-gif'
+                                height={80}
+                                width={80}
+                                src='/img/nothing_to_show.gif'
+                            />
+                            <h4 className='nothing-text'>Nothing to show...</h4>
+                        </div>
+                    ) : (
+                        <Grid container spacing={4} width='100%'>
+                            {currentBooks.map((book) => (
+                                <Grid item key={book._id} xs={12} sm={6} md={4}>
+                                    <Link
+                                        component={RouterLink}
+                                        to={`/book/${book._id}`}
+                                        sx={{textDecoration: 'none'}}
+                                    >
+                                        <BookCard
+                                            imageUrl={book.imageUrl}
+                                            title={book.title}
+                                            description={book.description}
+                                        />
+                                    </Link>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    )}
                 </Container>
             </div>
 
