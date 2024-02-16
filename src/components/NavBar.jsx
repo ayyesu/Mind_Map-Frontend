@@ -229,9 +229,9 @@ export default function NavBar() {
                     <Link
                         sx={{textDecoration: 'none'}}
                         component={RouterLink}
-                        to={`/request-admin`}
+                        to={`/join-waitlist`}
                     >
-                        <MenuItem>Publisher Request Form</MenuItem>
+                        <MenuItem>Join the waitlist</MenuItem>
                     </Link>
                 </Grid>
             )}

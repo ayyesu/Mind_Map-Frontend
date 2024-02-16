@@ -13,7 +13,7 @@ import ProtectedRoute from './ProtectedRoutes';
 import AdminRoute from './AdminRoute';
 import Unauthorized from './pages/Unauthorized';
 import UserBooks from './pages/UserBooks';
-import AdminRequestForm from './pages/AdminRequest';
+import Waitlist from './pages/Waitlist';
 import {AuthContext} from './context/AuthContext';
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
                 />
                 <Route path='/signup' element={user ? <Home /> : <SignUp />} />
                 <Route path='/unauthorized' element={<Unauthorized />} />
-                <Route path='/request-admin' element={<AdminRequestForm />} />
+                <Route path='/join-waitlist' element={<Waitlist />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </Router>
