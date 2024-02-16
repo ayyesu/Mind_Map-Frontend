@@ -5,6 +5,7 @@ import './normalize.css';
 import './App.css';
 import {AuthContextProvider} from './context/AuthContext.jsx';
 import {BookContextProvider} from './context/BookContext';
+import {FunctionContextProvider} from './context/functionContext.jsx';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
@@ -12,9 +13,11 @@ Modal.setAppElement('#root');
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <AuthContextProvider>
-            <BookContextProvider>
-                <App />
-            </BookContextProvider>
+            <FunctionContextProvider>
+                <BookContextProvider>
+                    <App />
+                </BookContextProvider>
+            </FunctionContextProvider>
         </AuthContextProvider>
     </React.StrictMode>,
 );

@@ -478,3 +478,8 @@ p {
     color: burlywood;
     animation: glow 1s infinite alternate;
 }
+
+.waitlist-bar {
+    font-family: 'Inter', sans-serif;
+    color: #2196f3;
+}
