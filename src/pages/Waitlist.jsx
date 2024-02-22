@@ -6,7 +6,7 @@ import NavBar from '../components/NavBar';
 
 const Waitlist = () => {
     const {user} = useContext(AuthContext);
-    const {joinWaitlist, joiningWaitlist, waitlistError, waitlistJoined} =
+    const {joinWaitlist, joiningWaitlist, currentTheme, waitlistJoined} =
         useContext(FunctionContext);
 
     return (
