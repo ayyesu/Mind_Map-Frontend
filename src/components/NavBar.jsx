@@ -17,6 +17,14 @@ import {Link} from '@mui/material';
 import {useLocation} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 import {BookContext} from '../context/BookContext';
+import SettingSvg from './svg/SettingSvg';
+import ManagePostSvg from './svg/ManagePostSvg';
+import CreatePostSvg from './svg/CreatePost';
+import MenuSvg from './svg/Menu';
+import WaitlistSvg from './svg/Waitlist';
+import ThemeSwitcher from './ThemeSwitcher';
+import {FunctionContext} from '../context/functionContext';
+import LogoutSvg from './svg/Logout';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -61,6 +69,8 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 export default function NavBar() {
     const {logoutUser, user} = useContext(AuthContext);
     const {setSearchQuery} = useContext(BookContext);
+    const {currentTheme} = useContext(FunctionContext);
+    console.log(currentTheme);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -71,6 +81,13 @@ export default function NavBar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    // Theme
+    const [themeAnchorEl, setthemeAnchorEl] = useState(null);
+
+    const handlethemeMenuOpen = (event) => {
+        setthemeAnchorEl(event.currentTarget);
+    };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -97,7 +114,6 @@ export default function NavBar() {
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            className='menu-render'
             id={menuId}
             keepMounted
             transformOrigin={{
@@ -106,136 +122,151 @@ export default function NavBar() {
             }}
             open={isMenuOpen}
             onClose={handleMenuClose}
+            sx={{
+                '& .MuiPaper-root': {
+                    background: currentTheme === 'dark' ? '#1f2937' : 'white',
+                    color: currentTheme === 'dark' ? 'white' : 'black',
+                },
+            }}
         >
-            {user && (
-                <Grid className='menu-items'>
-                    <IconButton
-                        size='large'
-                        aria-label='admin console'
-                        aria-controls='primary-search-account-menu'
-                        aria-haspopup='true'
-                        color='inherit'
-                    >
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            className='bi bi-door-closed'
-                            viewBox='0 0 16 16'
+            <div
+                className={`${
+                    currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
+                } `}
+            >
+                {user?.user.role === 'admin' && (
+                    <Grid className='menu-items hover:bg-slate-600 transition'>
+                        <IconButton
+                            size='large'
+                            aria-label='admin console'
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup='true'
+                            color='inherit'
                         >
-                            <path d='M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z' />
-                            <path d='M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z' />
-                        </svg>
-                    </IconButton>
-                    <MenuItem onClick={logoutUser}>Log out</MenuItem>
-                </Grid>
-            )}
-            {user?.user.role === 'admin' && (
-                <Grid className='menu-items'>
-                    <IconButton
-                        size='large'
-                        aria-label='admin console'
-                        aria-controls='primary-search-account-menu'
-                        aria-haspopup='true'
-                        color='inherit'
-                    >
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            className='bi bi-file-lock2'
-                            viewBox='0 0 16 16'
+                            <CreatePostSvg />
+                        </IconButton>
+                        <Link
+                            sx={{textDecoration: 'none'}}
+                            component={RouterLink}
+                            to={`/admin/${user?.user._id}`}
                         >
-                            <path d='M8 5a1 1 0 0 1 1 1v1H7V6a1 1 0 0 1 1-1zm2 2.076V6a2 2 0 1 0-4 0v1.076c-.54.166-1 .597-1 1.224v2.4c0 .816.781 1.3 1.5 1.3h3c.719 0 1.5-.484 1.5-1.3V8.3c0-.627-.46-1.058-1-1.224z' />
-                            <path d='M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z' />
-                        </svg>
-                    </IconButton>
-                    <Link
-                        sx={{textDecoration: 'none'}}
-                        component={RouterLink}
-                        to={`/admin/${user?.user._id}`}
-                    >
-                        <MenuItem>Admin Console</MenuItem>
-                    </Link>
-                </Grid>
-            )}
-            {user?.user.role === 'admin' && (
-                <Grid className='menu-items'>
-                    <IconButton
-                        size='large'
-                        aria-label='admin console'
-                        aria-controls='primary-search-account-menu'
-                        aria-haspopup='true'
-                        color='inherit'
-                    >
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            className='bi bi-door-open'
-                            viewBox='0 0 16 16'
+                            <MenuItem
+                                className={`${
+                                    currentTheme === 'light' || null
+                                        ? 'text-black'
+                                        : 'text-white'
+                                }`}
+                            >
+                                Create Post
+                            </MenuItem>
+                        </Link>
+                    </Grid>
+                )}
+                {user?.user.role === 'admin' && (
+                    <Grid className='menu-items hover:bg-slate-600 transition'>
+                        <IconButton
+                            size='large'
+                            aria-label='admin console'
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup='true'
+                            color='inherit'
                         >
-                            <path d='M13.5 11h-11a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5zM13 5H3v4h10V5z' />
-                            <path
-                                fillRule='evenodd'
-                                d='M8 13.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H8.5a.5.5 0 0 1-.5-.5z'
-                            />
-                            <path
-                                fillRule='evenodd'
-                                d='M7.646 8.146a.5.5 0 0 1 .708 0L10 10.293V7.5a.5.5 0 0 1 1 0v3a.5.5 0 0 1-.5.5H7.5a.5.5 0 0 1 0-1h2.793L7.646 8.146z'
-                            />
-                        </svg>
-                    </IconButton>
-                    <Link
-                        sx={{textDecoration: 'none'}}
-                        component={RouterLink}
-                        to={`/user/posts/${user?.user._id}`}
-                    >
-                        <MenuItem>Manage Posts</MenuItem>
-                    </Link>
-                </Grid>
-            )}
-            {user?.user.role === 'user' && (
-                <Grid className='menu-items'>
-                    <IconButton
-                        size='large'
-                        aria-label='admin console'
-                        aria-controls='primary-search-account-menu'
-                        aria-haspopup='true'
-                        color='inherit'
-                    >
-                        <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='16'
-                            height='16'
-                            fill='currentColor'
-                            className='bi bi-door-open'
-                            viewBox='0 0 16 16'
+                            <ManagePostSvg />
+                        </IconButton>
+                        <Link
+                            sx={{textDecoration: 'none'}}
+                            component={RouterLink}
+                            to={`/user/posts/${user?.user._id}`}
                         >
-                            <path d='M13.5 11h-11a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5zM13 5H3v4h10V5z' />
-                            <path
-                                fillRule='evenodd'
-                                d='M8 13.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H8.5a.5.5 0 0 1-.5-.5z'
-                            />
-                            <path
-                                fillRule='evenodd'
-                                d='M7.646 8.146a.5.5 0 0 1 .708 0L10 10.293V7.5a.5.5 0 0 1 1 0v3a.5.5 0 0 1-.5.5H7.5a.5.5 0 0 1 0-1h2.793L7.646 8.146z'
-                            />
-                        </svg>
-                    </IconButton>
-                    <Link
-                        sx={{textDecoration: 'none'}}
-                        component={RouterLink}
-                        to={`/join-waitlist`}
-                    >
-                        <MenuItem>Join the waitlist</MenuItem>
-                    </Link>
-                </Grid>
-            )}
+                            <MenuItem
+                                className={`${
+                                    currentTheme === 'light' || ''
+                                        ? 'text-black'
+                                        : 'text-white'
+                                }`}
+                            >
+                                Manage Posts
+                            </MenuItem>
+                        </Link>
+                    </Grid>
+                )}
+                {user?.user.role === 'user' && (
+                    <Grid className='menu-items hover:bg-slate-600 transition'>
+                        <IconButton
+                            size='large'
+                            aria-label='admin console'
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup='true'
+                            color='inherit'
+                        >
+                            <WaitlistSvg />
+                        </IconButton>
+                        <Link
+                            sx={{textDecoration: 'none'}}
+                            component={RouterLink}
+                            to={`/join-waitlist`}
+                        >
+                            <MenuItem
+                                className={`${
+                                    currentTheme === 'light' || ''
+                                        ? 'text-black'
+                                        : 'text-white'
+                                }`}
+                            >
+                                Join the waitlist
+                            </MenuItem>
+                        </Link>
+                    </Grid>
+                )}
+
+                {user && (
+                    <Grid className='menu-items hover:bg-slate-600 transition'>
+                        <IconButton
+                            size='large'
+                            aria-label='admin console'
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup='true'
+                            color='inherit'
+                        >
+                            <SettingSvg />
+                        </IconButton>
+                        <MenuItem
+                            className={`${
+                                currentTheme === 'light' || ''
+                                    ? 'text-black'
+                                    : 'text-white'
+                            } flex flex-row`}
+                            onClick={handlethemeMenuOpen}
+                        >
+                            <div>Theme Settings</div>
+                        </MenuItem>
+                    </Grid>
+                )}
+
+                {user && (
+                    <Grid className='menu-items hover:bg-slate-600 transition'>
+                        <IconButton
+                            size='large'
+                            aria-label='admin console'
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup='true'
+                            color='inherit'
+                        >
+                            <LogoutSvg />
+                        </IconButton>
+                        <MenuItem onClick={logoutUser}>Log out</MenuItem>
+                    </Grid>
+                )}
+            </div>
         </Menu>
+    );
+
+    const renderthememenu = (
+        <ThemeSwitcher
+            themeAnchorEl={themeAnchorEl}
+            setthemeAnchorEl={setthemeAnchorEl}
+            menuId={menuId}
+        />
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -254,35 +285,53 @@ export default function NavBar() {
             }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
+            sx={{
+                '& .MuiPaper-root': {
+                    background: currentTheme === 'dark' ? '#1f2937' : 'white',
+                    color: currentTheme === 'dark' ? 'white' : 'black',
+                },
+            }}
         >
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <Grid className='menu-items'>
-                    <IconButton
-                        size='large'
-                        aria-label='account of current user'
-                        aria-controls='primary-search-account-menu'
-                        aria-haspopup='true'
-                        color='inherit'
+            <div
+                className={`${
+                    currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
+                } `}
+            >
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <Grid
+                        className={`${
+                            currentTheme === 'black'
+                                ? 'bg-slate-800 text-white'
+                                : ''
+                        } flex`}
                     >
-                        <AccountCircle />
-                    </IconButton>
-                    <p className='profile-menu'>Profile</p>
-                </Grid>
-            </MenuItem>
+                        <MenuSvg />
+
+                        <span className='ml-2'>Menu</span>
+                    </Grid>
+                </MenuItem>
+            </div>
         </Menu>
     );
 
     const location = useLocation();
 
     return (
-        <Box className='nav' sx={{flexGrow: 1}}>
+        <Box>
             <AppBar position='static'>
                 <Toolbar>
                     <Typography
                         variant='h6'
                         noWrap
                         component='div'
-                        sx={{display: {xs: 'none', sm: 'block'}}}
+                        sx={{
+                            display: {
+                                xs: `${
+                                    location.pathname === '/' ? 'none' : ''
+                                }`,
+                                sm: 'block',
+                            },
+                        }}
                     >
                         <Link component={RouterLink} to='/' className='logo'>
                             <img src='/img/logo.png' alt='logo' width='85px' />
@@ -329,8 +378,16 @@ export default function NavBar() {
                     </Box>
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
+
+            <div
+                className={`${
+                    currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
+                } `}
+            >
+                {renderMobileMenu}
+                {renderMenu}
+                {renderthememenu}
+            </div>
         </Box>
     );
 }
