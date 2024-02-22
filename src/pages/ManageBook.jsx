@@ -57,7 +57,7 @@ const ManageBook = () => {
             <NavBar />
             <div className='h-screen'>
                 <h2 className='flex sm:justify-center sm:items-center mt-20 font-inter admin-header'>
-                    Manage Books
+                    Manage Your Posts
                 </h2>
                 {userBooks.length === 0 ? (
                     <div className='flex justify-center items-center h-1/2 font-inter'>
