@@ -70,7 +70,6 @@ export default function NavBar() {
     const {logoutUser, user} = useContext(AuthContext);
     const {setSearchQuery} = useContext(BookContext);
     const {currentTheme} = useContext(FunctionContext);
-    console.log(currentTheme);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
