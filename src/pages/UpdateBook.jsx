@@ -114,6 +114,7 @@ const UpdateBook = () => {
                         }}
                     />
 
+                    <span className='form-label'>Rewrite Description:</span>
                     <Simplemde
                         onChange={(newDescription) => {
                             updateBookInfo({
