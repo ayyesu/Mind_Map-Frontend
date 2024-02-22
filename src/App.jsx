@@ -28,13 +28,12 @@ function App() {
             <Routes>
                 <Route element={<ProtectedRoute />}>
                     <Route path='/' element={user ? <Home /> : <SignIn />} />
-                    <Route element={<AdminRoute />}>
-                        <Route path='/admin/:userId' element={<PostBook />} />
-                        <Route
-                            path='/user/posts/:userId'
-                            element={user ? <ManageBook /> : <SignIn />}
-                        />
-                    </Route>
+                    <Route path='/admin/:userId' element={<PostBook />} />
+                    <Route
+                        path='/user/posts/:userId'
+                        element={user ? <ManageBook /> : <SignIn />}
+                    />
+                    {/* <Route element={<AdminRoute />}></Route> */}
                     <Route
                         path='/book/:bookId'
                         element={user ? <BookDetailsPage /> : <SignIn />}
