@@ -6,13 +6,24 @@ import NavBar from '../components/NavBar';
 
 const Waitlist = () => {
     const {user} = useContext(AuthContext);
-    const {joinWaitlist, joiningWaitlist, waitlistError, waitlistJoined} =
+    const {joinWaitlist, joiningWaitlist, currentTheme, waitlistJoined} =
         useContext(FunctionContext);
 
     return (
-        <div>
+        <div
+            className={`${
+                currentTheme === 'dark' ? 'bg-slate-800 text-white ' : ''
+            } `}
+        >
             <NavBar />
-            <div className='admin-request' style={{marginTop: 0}}>
+            <div
+                className={`${
+                    currentTheme === 'dark'
+                        ? 'bg-slate-800 text-white min-h-screen'
+                        : 'admin-request'
+                } `}
+                style={{marginTop: 0}}
+            >
                 <Container maxWidth='sm'>
                     <Box mt={5}>
                         <Typography
@@ -66,6 +77,7 @@ const Waitlist = () => {
                                         joinWaitlist(user?.user.email)
                                     }
                                     fullWidth
+                                    disabled={joiningWaitlist}
                                 >
                                     {joiningWaitlist
                                         ? 'Joining...'
