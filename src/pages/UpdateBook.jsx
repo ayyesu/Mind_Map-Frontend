@@ -13,6 +13,7 @@ import {useParams} from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import {FunctionContext} from '../context/functionContext';
 import {Simplemde} from '../components/SimpleMde';
+import 'easymde/dist/easymde.min.css';
 
 const UpdateBook = () => {
     const {

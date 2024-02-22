@@ -47,8 +47,14 @@ function App() {
                 />
                 <Route path='/signup' element={user ? <Home /> : <SignUp />} />
                 <Route path='/unauthorized' element={<Unauthorized />} />
-                <Route path='/update-book/:bookId' element={<UpdateBook />} />
-                <Route path='/join-waitlist' element={<Waitlist />} />
+                <Route
+                    path='/update-book/:bookId'
+                    element={user ? <UpdateBook /> : <SignIn />}
+                />
+                <Route
+                    path='/join-waitlist'
+                    element={user ? <Waitlist /> : <SignIn />}
+                />
                 <Route path='*' element={<NotFound />} />
             </Routes>
         </Router>
