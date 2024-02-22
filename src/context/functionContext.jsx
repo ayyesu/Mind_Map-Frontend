@@ -10,7 +10,9 @@ export const FunctionContextProvider = ({children}) => {
     const [waitlistError, setWaitlistError] = useState('');
     const [waitlistJoined, setWaitlistJoined] = useState(false);
 
-    const [currentTheme, setCurrentTheme] = useState(localStorage.theme);
+    const [currentTheme, setCurrentTheme] = useState(
+        localStorage.theme || 'light',
+    );
 
     // Joining Waitlist
     const joinWaitlist = async (email) => {
