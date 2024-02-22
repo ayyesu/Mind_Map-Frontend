@@ -12,7 +12,12 @@ const Waitlist = () => {
     return (
         <div>
             <NavBar />
-            <div className='admin-request' style={{marginTop: 0}}>
+            <div
+                className={`${
+                    currentTheme === 'dark' ? 'bg-slate-800 text-white ' : ''
+                } admin-request`}
+                style={{marginTop: 0}}
+            >
                 <Container maxWidth='sm'>
                     <Box mt={5}>
                         <Typography
