@@ -6,15 +6,16 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NotFound from './pages/NotFound';
-import Admin from './pages/Admin';
+import PostBook from './pages/PostBook';
 import {register} from './serviceWorker';
 import BookDetailsPage from './pages/Book/BookDetails';
 import ProtectedRoute from './ProtectedRoutes';
 import AdminRoute from './AdminRoute';
 import Unauthorized from './pages/Unauthorized';
-import UserBooks from './pages/UserBooks';
+import ManageBook from './pages/ManageBook';
 import Waitlist from './pages/Waitlist';
 import {AuthContext} from './context/AuthContext';
+import UpdateBook from './pages/UpdateBook';
 
 function App() {
     register();
@@ -28,10 +29,10 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                     <Route path='/' element={user ? <Home /> : <SignIn />} />
                     <Route element={<AdminRoute />}>
-                        <Route path='/admin/:userId' element={<Admin />} />
+                        <Route path='/admin/:userId' element={<PostBook />} />
                         <Route
                             path='/user/posts/:userId'
-                            element={user ? <UserBooks /> : <SignIn />}
+                            element={user ? <ManageBook /> : <SignIn />}
                         />
                     </Route>
                     <Route
@@ -46,6 +47,7 @@ function App() {
                 />
                 <Route path='/signup' element={user ? <Home /> : <SignUp />} />
                 <Route path='/unauthorized' element={<Unauthorized />} />
+                <Route path='/update-book/:bookId' element={<UpdateBook />} />
                 <Route path='/join-waitlist' element={<Waitlist />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
