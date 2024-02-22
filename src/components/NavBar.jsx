@@ -133,7 +133,7 @@ export default function NavBar() {
                     currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
                 } `}
             >
-                {user?.user.role === 'admin' && (
+                {user && (
                     <Grid className='menu-items hover:bg-slate-600 transition'>
                         <IconButton
                             size='large'
@@ -161,7 +161,7 @@ export default function NavBar() {
                         </Link>
                     </Grid>
                 )}
-                {user?.user.role === 'admin' && (
+                {user && (
                     <Grid className='menu-items hover:bg-slate-600 transition'>
                         <IconButton
                             size='large'
@@ -189,7 +189,7 @@ export default function NavBar() {
                         </Link>
                     </Grid>
                 )}
-                {user?.user.role === 'user' && (
+                {/* {user?.user.role === 'user' && (
                     <Grid className='menu-items hover:bg-slate-600 transition'>
                         <IconButton
                             size='large'
@@ -216,7 +216,7 @@ export default function NavBar() {
                             </MenuItem>
                         </Link>
                     </Grid>
-                )}
+                )} */}
 
                 {user && (
                     <Grid className='menu-items hover:bg-slate-600 transition'>
