@@ -463,7 +463,7 @@ p {
 
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
-    width: 10px; /* Width of the scrollbar */
+    width: 6px; /* Width of the scrollbar */
 }
 
 /* Track */

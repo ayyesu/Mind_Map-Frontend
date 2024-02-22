@@ -1,5 +1,4 @@
 import React, {useContext, useEffect, useState} from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import NavBar from '../../components/NavBar';
@@ -13,6 +12,8 @@ import Loading from './Loading';
 import {FunctionContext} from '../../context/functionContext';
 import PreviewSvg from '../../components/svg/Preview';
 import DownloadSvg from '../../components/svg/Download';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function BookDetailsPage() {
     const {bookDetails, fetchSingleBook, fetchingBook} =
@@ -120,9 +121,14 @@ export default function BookDetailsPage() {
                                 <pre
                                     className={`${
                                         currentTheme === 'dark' && ''
-                                    }text-base mb-1 h-40 overflow-y-auto pr-2 font-inter whitespace-pre-wrap py-4 px-6  border border-gray-300`}
+                                    } text-base mb-1 h-40 overflow-y-auto pr-2 font-inter whitespace-pre-wrap py-4 px-6  border border-gray-300`}
                                 >
-                                    {bookDetails.description} <br />
+                                    <div className='text-sm'>
+                                        <Markdown remarkPlugins={[remarkGfm]}>
+                                            {bookDetails.description}
+                                        </Markdown>
+                                    </div>
+                                    <br />
                                     <span
                                         className='show-more'
                                         onClick={toggleDescription}
@@ -136,7 +142,14 @@ export default function BookDetailsPage() {
                                         currentTheme === 'dark' && ''
                                     }text-base mb-1 h-40 overflow-y-auto pr-2 font-inter whitespace-pre-wrap py-4 px-6  border border-gray-300`}
                                 >
-                                    {bookDetails.description?.slice(0, 100)}...
+                                    <div className='text-sm'>
+                                        <Markdown remarkPlugins={[remarkGfm]}>
+                                            {bookDetails.description?.slice(
+                                                0,
+                                                100,
+                                            ) + '...'}
+                                        </Markdown>
+                                    </div>
                                     <span
                                         className='show-more'
                                         onClick={toggleDescription}
