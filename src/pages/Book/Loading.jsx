@@ -6,15 +6,23 @@ import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import {useContext} from 'react';
+import {FunctionContext} from '../../context/functionContext';
 
 const Loading = () => {
+    const {currentTheme} = useContext(FunctionContext);
     return (
         <div>
             <CssBaseline />
             <NavBar />
-            <div className='book-detail-body'>
+            <div
+                className={`${
+                    currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
+                } min-h-screen `}
+            >
+                {/* Hero unit */}
                 <Box
-                    style={{backgroundColor: '#2196f32e'}}
+                    style={{backgroundColor: '#2196f32e', minHeight: '100vh'}}
                     sx={{
                         bgcolor: 'background.paper',
                         pt: 8,

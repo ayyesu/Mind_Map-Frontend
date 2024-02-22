@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './normalize.css';
 import './App.css';
-import './main.css';
+import './index.css';
 import {AuthContextProvider} from './context/AuthContext.jsx';
 import {BookContextProvider} from './context/BookContext';
 import {FunctionContextProvider} from './context/functionContext.jsx';

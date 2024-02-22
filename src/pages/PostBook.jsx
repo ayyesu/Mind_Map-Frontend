@@ -8,46 +8,39 @@ import {
     FormControl,
     InputLabel,
 } from '@mui/material';
-import {Link as RouterLink} from 'react-router-dom';
-import {Link} from '@mui/material';
 import PdfUploader from '../components/PdfUploader';
 import ImageUploader from '../components/ImageUploader';
 import {BookContext} from '../context/BookContext';
+import NavBar from '../components/NavBar';
+import {FunctionContext} from '../context/functionContext';
+import {Simplemde} from '../components/SimpleMde';
 
-const Admin = () => {
+const PostBook = () => {
     const {
         updateBookInfo,
         bookInfo,
         handleAddingBook,
         handleImageUpload,
         handleFileUpload,
+        addingBook,
     } = useContext(BookContext);
 
+    const {currentTheme} = useContext(FunctionContext);
+
     return (
-        <div>
+        <div
+            className={`${
+                currentTheme === 'dark' ? 'bg-slate-800 text-white' : ''
+            }`}
+        >
+            <NavBar />
             <Container className='admin-container'>
                 <div className='admin-logo '>
                     <img src='/img/logo.png' alt='logo' width='150px' />
                 </div>
                 <div className='admin-div'>
                     <div>
-                        <h1 className='admin-header'>Admin Console</h1>
-                    </div>
-                    <div className='admin-homelogo'>
-                        <Link component={RouterLink} to='/'>
-                            <p className='link'>
-                                <svg
-                                    xmlns='http://www.w3.org/2000/svg'
-                                    width='30'
-                                    height='30'
-                                    fill='#2196f32e'
-                                    className='bi bi-house'
-                                    viewBox='0 0 16 16'
-                                >
-                                    <path d='M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z' />
-                                </svg>
-                            </p>
-                        </Link>
+                        <h1 className='admin-header'>Create Post</h1>
                     </div>
                 </div>
 
@@ -74,19 +67,16 @@ const Admin = () => {
                             });
                         }}
                     />
-                    <TextField
-                        label='Description'
-                        name='description'
-                        className='form-field'
-                        multiline
-                        rows={12}
-                        onChange={(e) => {
+                    <span className='form-label'>Description:</span>
+                    <Simplemde
+                        onChange={(newDescription) => {
                             updateBookInfo({
                                 ...bookInfo,
-                                description: e.target.value,
+                                description: newDescription,
                             });
                         }}
                     />
+
                     <div className='pad-loading'>
                         <ImageUploader onImageSelect={handleImageUpload} />
                     </div>
@@ -137,8 +127,13 @@ const Admin = () => {
                             });
                         }}
                     />
-                    <Button type='submit' variant='contained' color='primary'>
-                        Add Book
+                    <Button
+                        disabled={addingBook}
+                        type='submit'
+                        variant='contained'
+                        color='primary'
+                    >
+                        Create Post
                     </Button>
                 </form>
             </Container>
@@ -146,4 +141,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default PostBook;
