@@ -35,9 +35,6 @@ export const BookContextProvider = ({children}) => {
         category: '',
         price: '',
     });
-    console.log('Book Info', bookInfo);
-    console.log('File Name', fileName);
-    console.log('Book Info', bookInfo);
 
     const updateBookInfo = useCallback(
         (info) => {

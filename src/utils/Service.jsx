@@ -2,14 +2,12 @@ import axios from 'axios';
 import config from '../config/config';
 
 export const baseUrl = config.apiUrl;
-console.log('baseUrl', baseUrl);
 
 // GET request
 export const getRequest = async (url) => {
     try {
         const response = await axios.get(url);
         const data = response.data;
-        console.log('response', response);
         if (response.status !== 200) {
             let message;
             if (data?.message) {
@@ -59,7 +57,6 @@ export const filePostRequest = async (url, formData) => {
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log('form data response', response);
 
         let message;
         if (response.status !== 200) {
@@ -86,8 +83,6 @@ export const deleteRequest = async (url) => {
     try {
         const response = await axios.delete(url);
         const data = response.data;
-
-        console.log('response', response);
 
         if (response.status !== 200) {
             let message;
