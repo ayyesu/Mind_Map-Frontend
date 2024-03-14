@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Footer from '../components/Footer';
 import {AuthContext} from '../context/AuthContext';
+import {toast} from 'react-toastify';
 
 const defaultTheme = createTheme();
 
@@ -24,6 +25,23 @@ export default function SignIn() {
             [fieldName]: value,
         });
     };
+
+    if (loggingIn) {
+        toast(
+            '🦄 This is a free instance host which can delay requests by 50 seconds or more. Please wait for a while if there is a delay!',
+            {
+                position: 'top-right',
+                autoClose: 80000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+            },
+        );
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>

@@ -3,12 +3,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import {Link} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {toast} from 'react-toastify';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
@@ -27,6 +25,23 @@ export default function SignUp() {
             [fieldName]: value,
         });
     };
+
+    if (signingup) {
+        toast(
+            '🦄 This is a free instance host which can delay requests by 50 seconds or more. Please wait for a while if there is a delay!',
+            {
+                position: 'top-right',
+                autoClose: 80000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Bounce,
+            },
+        );
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
