@@ -32,13 +32,7 @@ export default function SignUp() {
             {
                 position: 'top-right',
                 autoClose: 80000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-                transition: Bounce,
+                hideProgressBar: true,
             },
         );
     }
