@@ -3,6 +3,7 @@ import {TextField, Button, Box, Container, Typography} from '@mui/material';
 import {AuthContext} from '../context/AuthContext';
 import {FunctionContext} from '../context/functionContext';
 import NavBar from '../components/NavBar';
+import LoadingButton from '../components/svg/LoadingButton';
 
 const Waitlist = () => {
     const {user} = useContext(AuthContext);
@@ -79,9 +80,11 @@ const Waitlist = () => {
                                     fullWidth
                                     disabled={joiningWaitlist}
                                 >
-                                    {joiningWaitlist
-                                        ? 'Joining...'
-                                        : 'Join waitlist'}
+                                    {joiningWaitlist ? (
+                                        <LoadingButton />
+                                    ) : (
+                                        'Join waitlist'
+                                    )}
                                 </Button>
                             )}
                         </form>

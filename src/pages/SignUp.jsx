@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Footer from '../components/Footer';
 import {AuthContext} from '../context/AuthContext';
+import LoadingButton from '../components/svg/LoadingButton';
 
 const defaultTheme = createTheme();
 
@@ -152,7 +153,7 @@ export default function SignUp() {
                             variant='contained'
                             sx={{mt: 3, mb: 2}}
                         >
-                            {signingup ? '...' : 'Sign up'}
+                            {signingup ? <LoadingButton /> : 'Sign up'}
                         </Button>
                         <Grid container justifyContent='flex-end'>
                             <Grid item>

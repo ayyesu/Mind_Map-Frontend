@@ -12,6 +12,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Footer from '../components/Footer';
 import {AuthContext} from '../context/AuthContext';
 import {toast} from 'react-toastify';
+import LoadingButton from '../components/svg/LoadingButton';
 
 const defaultTheme = createTheme();
 
@@ -122,14 +123,14 @@ export default function SignIn() {
                                 variant='contained'
                                 sx={{mt: 3, mb: 2}}
                             >
-                                {loggingIn ? '...' : 'Sign In'}
+                                {loggingIn ? <LoadingButton /> : 'Sign In'}
                             </Button>
                             <Grid container>
-                                {/* <Grid item xs>
-                                    <Link to='#' variant='body2'>
+                                <Grid item xs>
+                                    <Link to='/reset-password' variant='body2'>
                                         Forgot password?
                                     </Link>
-                                </Grid> */}
+                                </Grid>
                                 <Grid item>
                                     <Link to='/signup' variant='body2'>
                                         {"Don't have an account? Sign Up"}

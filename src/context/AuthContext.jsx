@@ -8,6 +8,9 @@ export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [signingup, setSigningUp] = useState(false);
     const [loggingIn, setLoggingIn] = useState(false);
+    const [resettingPassword, setResettingPassword] = useState(false);
+    const [requestingPasswordReset, setRequestingPasswordReset] =
+        useState(false);
     const [loginInfo, setLoginInfo] = useState({
         email: '',
         password: '',
@@ -107,6 +110,65 @@ export const AuthContextProvider = ({children}) => {
         [registerInfo],
     );
 
+    const requestPasswordReset = async (email) => {
+        try {
+            setRequestingPasswordReset(true);
+            const response = await postRequest(
+                `${baseUrl}/api/user/reset-password-email-request`,
+
+                {email},
+            );
+            localStorage.setItem('resetEmail', email);
+
+            if (response.error) {
+                toast.error(response?.message, {
+                    pauseOnHover: false,
+                });
+                setRequestingPasswordReset(false);
+            } else {
+                toast.success(response.message, {
+                    pauseOnHover: false,
+                });
+                setRequestingPasswordReset(false);
+            }
+        } catch (error) {
+            console.error('Error creating password reset request:', error);
+            setRequestingPasswordReset(false);
+        }
+    };
+
+    const resetPassword = async (
+        password,
+        confirmPassword,
+        resetEmail,
+        incomingResetToken,
+    ) => {
+        try {
+            console.log('resetEmail:', resetEmail);
+            setResettingPassword(true);
+            const response = await postRequest(
+                `${baseUrl}/api/user/reset-password`,
+                {
+                    password,
+                    confirmPassword,
+                    resetEmail,
+                    incomingResetToken,
+                },
+            );
+            if (response?.error) {
+                toast.error(response.message);
+                setResettingPassword(false);
+            } else {
+                toast.success(response.message);
+                setResettingPassword(false);
+                window.location.href = '/signin';
+            }
+        } catch (error) {
+            console.error('An error occurred during password reset:', error);
+            setResettingPassword(false);
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -120,6 +182,10 @@ export const AuthContextProvider = ({children}) => {
                 updateLoginInfo,
                 loggingIn,
                 logoutUser,
+                requestPasswordReset,
+                resetPassword,
+                resettingPassword,
+                requestingPasswordReset,
             }}
         >
             {children}

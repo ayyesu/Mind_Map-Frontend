@@ -33,6 +33,7 @@ export const postRequest = async (url, body) => {
                 'Content-Type': 'application/json',
             },
         });
+        console.log('response', response);
         if (response.status.error) {
             let message;
             if (response.data?.message) {

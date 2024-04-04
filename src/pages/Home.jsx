@@ -12,6 +12,7 @@ import BookCard from '../components/BookCard';
 import Footer from '../components/Footer';
 import {BookContext} from '../context/BookContext';
 import {FunctionContext} from '../context/functionContext';
+import PageLoading from '../components/PageLoading';
 
 export default function Home() {
     const {user} = useContext(AuthContext);
@@ -41,18 +42,7 @@ export default function Home() {
     const currentBooks = filteredBooks.slice(startIndex, endIndex);
 
     if (loading) {
-        return (
-            <div className='loading-tab'>
-                <div className='loadingio-spinner-dual-ring-zrf4k050kg8'>
-                    <div className='ldio-moow989lncj'>
-                        <div></div>
-                        <div>
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+        return <PageLoading />;
     }
 
     return (

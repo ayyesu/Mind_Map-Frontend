@@ -14,6 +14,7 @@ import {BookContext} from '../context/BookContext';
 import NavBar from '../components/NavBar';
 import {FunctionContext} from '../context/functionContext';
 import {Simplemde} from '../components/SimpleMde';
+import LoadingButton from '../components/svg/LoadingButton';
 
 const PostBook = () => {
     const {
@@ -133,7 +134,7 @@ const PostBook = () => {
                         variant='contained'
                         color='primary'
                     >
-                        Create Post
+                        {addingBook ? <LoadingButton /> : 'Create Post'}
                     </Button>
                 </form>
             </Container>

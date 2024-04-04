@@ -16,6 +16,8 @@ import ManageBook from './pages/ManageBook';
 import Waitlist from './pages/Waitlist';
 import {AuthContext} from './context/AuthContext';
 import UpdateBook from './pages/UpdateBook';
+import ResetPasswordEmailRequest from './pages/ResetPasswordEmailRequest';
+import PasswordReset from './pages/PasswordReset';
 
 function App() {
     register();
@@ -43,6 +45,14 @@ function App() {
                     path='/signin'
                     exact
                     element={user ? <Home /> : <SignIn />}
+                />
+                <Route
+                    path='/reset-password'
+                    element={<ResetPasswordEmailRequest />}
+                />
+                <Route
+                    path='/reset-password/:token'
+                    element={<PasswordReset />}
                 />
                 <Route path='/signup' element={user ? <Home /> : <SignUp />} />
                 <Route path='/unauthorized' element={<Unauthorized />} />

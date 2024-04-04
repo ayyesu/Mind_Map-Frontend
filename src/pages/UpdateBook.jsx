@@ -14,6 +14,8 @@ import NavBar from '../components/NavBar';
 import {FunctionContext} from '../context/functionContext';
 import {Simplemde} from '../components/SimpleMde';
 import 'easymde/dist/easymde.min.css';
+import LoadingButton from '../components/svg/LoadingButton';
+import PageLoading from '../components/PageLoading';
 
 const UpdateBook = () => {
     const {
@@ -55,15 +57,7 @@ const UpdateBook = () => {
     };
 
     if (!loaded) {
-        return (
-            <div
-                className={`${
-                    currentTheme === 'dark' ? 'bg-slate-800 text-white ' : ''
-                }flex justify-center  h-screen`}
-            >
-                <span className='m-auto'>Wait a minute...</span>
-            </div>
-        );
+        return <PageLoading />;
     }
 
     return (
@@ -163,7 +157,7 @@ const UpdateBook = () => {
                         variant='contained'
                         color='primary'
                     >
-                        {updatingBook ? 'Updating...' : 'Save Changes'}
+                        {updatingBook ? <LoadingButton /> : 'Save Changes'}
                     </Button>
                 </form>
             </Container>
