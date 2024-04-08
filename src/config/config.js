@@ -4,7 +4,7 @@ const config = {
         apiUrl: 'http://localhost:5000',
     },
     production: {
-        apiUrl: 'https://mind-map-api.onrender.com',
+        apiUrl: 'https://mindmap-backend-production.up.railway.app',
     },
 };
 
